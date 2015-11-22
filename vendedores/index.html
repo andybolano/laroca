@@ -17,6 +17,15 @@
         <script src="../public/js/angular/angular-route.js" type="text/javascript"></script>
         <script src="../public/js/angular/ui-utils.min.js" type="text/javascript"></script> 
         <script src="../public/scripts/routeVendedores.js" type="text/javascript"></script>
+     
+             <script>
+                    if (sessionStorage.getItem('session')) {
+                         
+                    }else{
+                        window.location.href = "../cliente/index.html";
+                    }
+            </script>
+           
     </head>
     <body>
             <div class="navbar-fixed">    
@@ -28,7 +37,7 @@
                         <a href="#/homeUsuario" class="brand-logo" style="margin-left:5px;margin-top: 6px;"><img src="../public/images/logo.png" width="160px;"></a>
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
                             <li><a href="javascript:;" class="waves-effect waves-light"><i class="material-icons left" style="font-size:18px;">today</i>{{hoy}}</a></li>
-                            <li><a href="#/salir" class="waves-effect waves-light"><i class="material-icons left" style="font-size:18px;">input</i>Salir</a></li>
+                            <li><a href="javascript:;" onclick="cerrarSesion()" class="waves-effect waves-light"><i class="material-icons left" style="font-size:18px;">input</i>Salir</a></li>
                         </ul>
                     </div>
                 </nav>
@@ -97,6 +106,13 @@
 
 
 
+          function cerrarSesion(){
+          Materialize.toast("Sesion finalizada",4000,'rounded');
+          sessionStorage.removeItem('session'); 
+          window.location.href = "../cliente/index.html";
+        }
+       
+            
         var abierto;
         $(document).ready(function() {
             abierto = true;

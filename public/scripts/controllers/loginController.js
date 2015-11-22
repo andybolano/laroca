@@ -26,8 +26,14 @@ app.controller('loginController', function($scope,loginService) {
                     Materialize.toast("Datos incorrectos, verifique su usuario y contraseña.",4000,'rounded');
                 }else if(d.data.message=="OK"){
                     Materialize.toast("Usuario auntenticado",4000,'rounded');
+                      sessionStorage.setItem("session",d.data.request);               
+                      var user = JSON.parse(sessionStorage.getItem("session"));
+                      if(user[0].rol === "ADMINISTRADOR"){
+     
                       window.location.href = "view/index.html";
-                      sessionStorage.setItem('session', JSON.stringify(d.data.request));
+                  }else if(user[0].rol === "VENDEDOR"){
+                      window.location.href = "../vendedores/index.html";
+                  }
                 }                                               
             }, function(err) {
                 if (err.status == 401) {
