@@ -1,0 +1,161 @@
+ <div ng-controller="serviciosController" class="contenedor"> 
+     <div class="row white">
+         <div class="col s12 z-depth-1">
+             <div class="contenedor">
+                 <div class="row">
+                     <div class="col s8">
+                         <h2>Gestion de Servicios</h2>  
+                     </div>
+                     <div class="col s4">
+                     <div class="input-field col s12">
+	          	<i class="material-icons prefix">search</i>
+	          	<input id="icon_prefix" type="text" class="validate" ng-model= "filtro">
+	         	<label for="icon_prefix">Filtro</label>
+	        </div>
+                        
+                     </div>
+                 </div>   
+                 <div class="row">
+                     <div class="col s12">
+                        <table class="striped bordered">
+                            <thead> 
+					<th>Id</th>
+                                        <th>Imagen</th>
+					<th>Nombre</th>
+					<th>Descripción</th>
+                                        <th>Opciones</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="servicio in Servicios">
+						<td>{{servicio.id}}</td>
+                                                <td><img src="{{servicio.ruta}}?dummy=8484744" style="height: 40px; width: 40px;border-radius:50%;padding:0;margin: 0;" alt="" /></td>
+						<td>{{servicio.nombre}}</td>
+						<td>{{servicio.descripcion}}</td>
+						<td>
+			 <td><a data-ng-click="get(servicio)" href="javascript:;"><i class="material-icons left" >visibility</i></a>
+                             <a href="javascript:;" ng-click="eliminar(servicio.id)"><i class = "material-icons prefix">delete</i></a></td>
+						
+					</tr>
+				</tbody>
+			</table>
+			</div>
+                 </div>
+             </div>
+         </div>
+     </div>
+      <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+			<a class="btn-floating btn-large waves-effect waves-light orange" ng-click="nuevo()">
+				<i class="material-icons">add</i>
+			</a>
+		</div>
+
+		<div id="modalServicios" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
+			
+			<form action="" name="frmServicios">
+				<div class="modal-content">
+                                    <h2>{{titulo}}</h2>
+					<div class="row">
+                                            <div class="col s8">
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                            <div class="input-field">
+                                                                   <i class="material-icons prefix">card_giftcard</i>
+                                                                    <input id="nombre" type="text" name="nombre"  ng-model="Servicio.nombre" required 
+                                                                    ng-class="{invalid:!frmServicios.$pristine && frmServicios.nombres.$error.required}">
+                                                                    <label for="nombre" class="{{active}}">Nombre</label>
+                                                                    <small><span class="red-text" ng-show="!frmServicios.$pristine && frmServicios.nombres.$error.required">Nombre Es Obligatorio.</span></small>
+                                                            </div>							
+                                                    </div>					
+
+                                                    <div class="col s12">
+                                                            <div class="input-field">
+                                                                 <i class="material-icons prefix">insert_comment</i>
+                                                                    <textarea cols="30" rows="10"  style="border:1px solid #c3c3c3; height:500px;" id="textarea" class="materialize-textarea" ng-model = "Servicio.descripcion" required 
+                                                                    ng-class="{invalid:!frmServicios.$pristine && frmServicios.nombres.$error.required}" ></textarea>
+                                                                    <label for="nombre" class="{{active}}">Descripción</label>
+                                                                    <small><span class="red-text" ng-show="!frmServicios.$pristine && frmServicios.nombres.$error.required">Descripción Es Obligatorio.</span></small>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                               <div class="col s4">
+                                                          <div class="col s12" id="image">
+
+                                                          </div>
+
+                                          <div class="file-field input-field col s12">
+                                          <a id="cambiar" ng-click="modificarImagen()" hidden style="display: none" href="javascript:;" class="btn col s12 red">Cambiar</a>
+                                          </div>
+
+                                          <div class="file-field input-field col s12">
+                                                  <div class="btn col s12">
+                                                    <span><i class="mdi-image-photo-camera"></i></span>
+                                                    <input id="files" uploader-model="Servicio.imagen" type="file">
+                                                  </div>
+                                                  <div class="file-path-wrapper">
+                                                    <!--<input class="file-path validate" type="text">-->
+                                                  </div>
+                                          </div>
+                                      </div>
+					</div>
+                                
+                                                     
+                                </div>
+				<div class="modal-footer">
+					<a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red" style="margin-left:10px;">Salir</a>
+					<input type="button"  class="waves-effect waves-light btn orange" ng-click="guardar()" ng-hide="editMode" ng-disabled="!frmServicios.$valid" value="Guardar">
+					<input type="button"  class="waves-effect waves-light btn orange" ng-click="update()" ng-show="editMode"  ng-disabled="!frmServicios.$valid" value="Modificar">
+				</div>
+			</form>
+		</div>
+
+
+	</div>
+
+<script>
+     
+    
+    function archivo(evt) {
+        var files = evt.target.files; // FileList object
+
+        //Obtenemos la imagen del campo "file". 
+        for (var i = 0, f; f = files[i]; i++) {
+            //Solo admitimos imágenes.
+            if (!f.type.match('image.*')) {
+                continue;
+            }
+
+            var reader = new FileReader();
+
+            reader.onload = (function(theFile) {
+                return function(e) {
+                    // Creamos la imagen.
+                    document.getElementById("image").innerHTML = ['<img class="thumb" style="width:100%;" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
+                };
+            })(f);
+            reader.readAsDataURL(f);
+        }
+    }
+
+    document.getElementById('files').addEventListener('change', archivo, false);
+
+    $(':file').change(function(){
+        //obtenemos un array con los datos del archivo
+        var file = $("#files")[0].files[0];
+        //obtenemos el nombre del archivo
+        var fileName = file.name;
+        //obtenemos la extensión del archivo
+        //document.getElementById("nombreImagen").value=fileName;
+        fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
+        //obtenemos el tamaño del archivo
+        var fileSize = file.size;
+        //obtenemos el tipo de archivo image/png ejemplo
+        var fileType = file.type;
+               
+        $("#cambiar").show();
+        //mensaje con la información del archivo
+        // alert("<span class='info'>Archivo para subir: "+fileName+", peso total: "+fileSize+" bytes.</span>");
+    });
+  
+    </script>
+

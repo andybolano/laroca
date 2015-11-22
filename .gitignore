@@ -1,0 +1,10 @@
+/vendor
+/node_modules
+Homestead.yaml
+.env
+/nbproject/private/
+public_web/view/registro.html
+
+public_web/js/scripts/services/clienteService.js
+
+public_web/js/scripts/controllers/clientesController.js

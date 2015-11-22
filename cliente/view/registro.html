@@ -1,0 +1,73 @@
+<div ng-controller="clientesController">
+
+	<div class="container white z-depth-1" style="padding: 20px;">
+		<form action="" name="frmClientes">	 		
+	    	<div class="row">
+	    		<div class="col s6">
+	    			<div class="input-field">
+						<input id="cedula" name="cedula" type="text" ng-model="Cliente.cedula" required
+						ng-class="{invalid:!frmClientes.$pristine && frmClientes.cedula.$error.required || frmClientes.cedula.$error.pattern}" ng-pattern="/^[0-9]*$/" ng-minlength="6" ng-blur="buscar()">
+						<label for="cedula" class="{{active}}">Cédula</label>
+						<small><span class="red-text" ng-show="!frmClientes.$pristine && frmClientes.cedula.$error.required">Cédula Es Obligatorio.</span></small>
+						<small><span class="red-text" ng-show="!frmClientes.cedula.$pristine && frmClientes.cedula.$error.pattern">Solo Números</span></small>
+						<small><span class="red-text" ng-show="!frmClientes.$pristine && frmClientes.cedula.$error.minlength">Mínimo 6 Caracteres.</span></small>
+					</div>
+	    		</div>
+	    	</div>
+	    	<div class="row">
+	    		<div class="col s6">
+	    			<div class="input-field">
+						<input id="nombres" type="text" name="nombres"  ng-model="Cliente.nombres" required 
+						ng-class="{invalid:!frmClientes.$pristine && frmClientes.nombres.$error.required}">
+						<label for="nombres" class="{{active}}">Nombres</label>
+						<small><span class="red-text" ng-show="!frmClientes.$pristine && frmClientes.nombres.$error.required">Nombres Es Obligatorio.</span></small>
+					</div>
+	    		</div>
+	    		<div class="col s6">
+	    			<div class="input-field">
+						<input id="apellido" name="apellido" type="text" ng-model="Cliente.apellidos" required ng-class="{invalid:!frmClientes.$pristine && frmClientes.apellido.$error.required}">
+						<label for="apellido" class="{{active}}">Apellidos</label>
+						<small><span class="red-text" ng-show="!frmClientes.$pristine && frmClientes.apellido.$error.required">Apellidos Es Obligatorio.</span></small>
+					</div>
+	    		</div>
+	    	</div> 
+	    	<div class="row">
+	    		<div class="col s6">
+	    			<div class="input-field">
+						<input id="direccion" name="direccion" type="text" ng-model="Cliente.direccion" required ng-class="{invalid:!frmClientes.$pristine && frmClientes.direccion.$error.required}">
+						<label for="direccion" class="{{active}}">Dirección</label>
+						<small><span class="red-text" ng-show="!frmClientes.$pristine && frmClientes.direccion.$error.required">Dirección Es Obligatorio.</span></small>
+					</div>
+	    		</div>
+	    		<div class="col s6">
+	    			<div class="input-field">
+						<input id="telefono" type="text" name="telefono" ng-model="Cliente.telefono" required ng-class="{invalid:!frmClientes.$pristine && frmClientes.telefono.$error.required || frmClientes.telefono.$error.pattern}" ng-pattern="/^[0-9]*$/" ng-minlength="7">
+						<label for="telefono" class="{{active}}">Teléfono</label>
+						<small><span class="red-text" ng-show="!frmClientes.$pristine && frmClientes.telefono.$error.required">Teléfono Es Obligatorio.</span></small>
+						<small><span class="red-text" ng-show="!frmClientes.telefono.$pristine && frmClientes.telefono.$error.pattern">Solo Números</span></small>
+						<small><span class="red-text" ng-show="!frmClientes.$pristine && frmClientes.telefono.$error.minlength">Mínimo 7 Caracteres.</span></small>
+					</div>
+	    		</div>	    		
+	    	</div>
+	    	<div class="row">
+	    		<div class="col s6">
+	    			<div class="input-field">
+						<input id="correo" type="email" name="correo" ng-model="Cliente.correo" required ng-class="{invalid:!frmClientes.$pristine && frmClientes.correo.$error.required || frmClientes.correo.$error.email }">
+						<label for="correo" class="{{active}}">Correo</label>
+						<small><span class="red-text" ng-show="!frmClientes.$pristine && frmClientes.correo.$error.required">Correo Es Obligatorio.</span></small>
+						<small><span class="red-text" ng-show="!frmClientes.correo.$pristine && frmClientes.correo.$error.email">Correo No Valido</span></small>
+					</div>
+	    		</div>
+	    		<div class="col s6">
+	    			<br>
+	    			<input class="with-gap" name="formaPedido" type="radio" id="domicilio" value="domicilio" />
+      				<label for="domicilio">Despacho Domicilio</label>
+      				<input class="with-gap" name="formaPedido" type="radio" id="tienda" value="tienda" />
+      				<label for="tienda">Retiro en Tienda</label>
+	    		</div>	    		
+	    	</div>
+	    	<input type="button" class="waves-effect waves-light btn orange" ng-click="Guardar()" value= "Comprar" ng-disabled="!frmClientes.$valid">
+	    	
+		</form>	
+	</div>
+</div>

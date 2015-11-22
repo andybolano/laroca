@@ -1,0 +1,127 @@
+<div ng-controller="catalogoController">
+	<div class="">
+		 <nav  class="z-depth-1">                 
+            <div class="nav-wrapper black accent-4">
+                <div class="container">                    
+                    <ul class="left">
+                        <li ng-repeat="categoria in Categorias">
+                        	<a href="javascript:;" ng-click="loadSubCategoria(categoria.id)">{{categoria.nombre}}</a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" ng-click="carrito()" ng-click="">Carrito de Compra</a>
+                        </li>
+                    </ul>                  
+                </div>
+            </div>
+        </nav>
+        <div class="row">
+        	<div class="col s2" ng-hide="mostrar">
+        		<table class="bordered">
+        			<thead>
+        				<th>SUBCATEGORIAS</th>
+        			</thead>
+        			<tbody>
+        				<tr ng-repeat="subCategoria in subCategorias">
+        					<td>
+        						<a href="javascript:;" ng-click="loadProductos(subCategoria.id)">{{subCategoria.nombre}}</a>
+        					</td>
+        				</tr>
+        			</tbody>
+        		</table>
+        	</div>
+        	<div class="col s10" ng-hide="mostrarProductos">
+        		<div class="col s3" ng-repeat="producto in Productos" ng-click = "detallesProducto(producto)">
+                    <div class="card small">
+                        <div class="card-image">
+                            <img src="{{producto.ruta}}" alt="">
+                        </div>
+                        <div class="card-content">
+                            <div class="row">
+                                <h4>{{producto.nombre}}</h4>
+                            </div>
+                            <div class="row">
+                                <p>{{producto.descripcion}}</p>
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            
+                        </div>
+                    </div>    
+                </div>
+        	</div>
+        </div>
+	</div>
+    <div class="modal" id="modalDetalles">
+        <div class="modal-content">
+            <div class="row">
+                <div class="col s4">
+                    <img src="{{Producto.ruta}}" alt="">
+                </div>
+                <div class="col s8">
+                    <h4>
+                        {{Producto.nombre}}
+                    </h4>
+                    <p>
+                        {{Producto.descripcion}}
+                    </p>
+                    <p>
+                        Presentación : {{Producto.presentacion}}
+                    </p>
+                    <p>
+                        Precio : {{Producto.precio | currency}}
+                    </p>
+                    <p>
+                        Precio Venta : {{Producto.precioVenta | currency}}
+                    </p>
+                    <p>
+                        Ganancia : {{Producto.precioVenta - Producto.precio | currency}}
+                    </p>
+                    <div class="row">
+                        <div class="col s4">
+                            <div class="input-field">
+                                <input id="cantidad" type="number" name="cantidad" ng-model="Pedido.cantidad">
+                                <label for="cantidad" >Cantidad</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:;" class="waves-effect waves-light btn red" style="margin-left:10px;">Salir</a>
+            <a href="javascript:;" class="waves-effect waves-light btn orange" ng-click="agregarCarritoVendedor(Producto)">Agregar</a>
+        </div>
+    </div>
+    <div class="modal" id="modalCarrito">
+        <div class="modal-content">
+            <div class="row">
+                <table class="bordered">
+                    <thead>
+                        <th>Id</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Subtotal</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="pedido in PedidosVendedor">
+                            <td style="width:60px;">{{pedido.idProducto}}</td>
+                            <td>{{pedido.nombre}}</td>
+                            <td style="width: 30px;text-aling: center">
+                                <input type="number" value="{{pedido.cantidad}}" style="text-align:center;"
+                                ng-keyup="cambiarCantidadVendedor($index)" id="pedido{{$index}}">
+                            </td>
+                            <td style="width:60px;">{{pedido.precio|currency}}</td>
+                            <td style="width:60px;">{{pedido.subtotal|currency}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:;" class="waves-effect waves-light btn red" style="margin-left:10px;">Salir</a>
+            <a href="javascript:;" ng-click="redireccionarVendedor()" class="waves-effect waves-light btn orange" >Comprar</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html ng-app="larocaVendedor">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Grupo Ferretero LA ROCA</title> 
+ 
+        <link href="../public/css/materialize.css" rel="stylesheet"/>
+        <link href="../public/css/animate.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="../public/css/style.css" rel="stylesheet"/>
+        <link rel="shortcut icon" href="../../public/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../public/favicon.ico" type="image/x-icon">
+        <script src="../public/js/jquery/jquery-2.1.1.min.js"></script>
+        <script src="../public/js/materialize.js" type="text/javascript"></script>
+        <script src="../public/js/angular/angular.js"></script>
+        <script src="../public/js/angular/angular-route.js" type="text/javascript"></script>
+        <script src="../public/js/angular/ui-utils.min.js" type="text/javascript"></script> 
+        <script src="../public/scripts/routeVendedores.js" type="text/javascript"></script>
+    </head>
+    <body>
+            <div class="navbar-fixed">    
+                <nav>
+                    <div class="nav-wrapper orange accent-4">
+                        <a style="float:left;margin-top:10px;margin-left:10px;width:40px; height:40px;border-radius:6px;text-align: center;" class="waves-effect waves-light" onclick="abrirMenu();">
+                            <i style="line-height:35px;" class="mdi-navigation-menu"></i>
+                        </a>  
+                        <a href="#/homeUsuario" class="brand-logo" style="margin-left:5px;margin-top: 6px;"><img src="../public/images/logo.png" width="160px;"></a>
+                        <ul id="nav-mobile" class="right hide-on-med-and-down">
+                            <li><a href="javascript:;" class="waves-effect waves-light"><i class="material-icons left" style="font-size:18px;">today</i>{{hoy}}</a></li>
+                            <li><a href="#/salir" class="waves-effect waves-light"><i class="material-icons left" style="font-size:18px;">input</i>Salir</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div>
+                <ul id="slide-out" class="side-nav fixed" style="width: 220px;margin-top: 60px;box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);">
+                    <li class="no-padding">
+                        <ul>
+                            <li class="user"></li> 
+                        </ul>
+                        
+                    <li>
+                        <i class="material-icons left" >home</i><a href="#/homeUsuario" >Inicio</a>
+                    </li> 
+			        <li>
+                        <i class="material-icons left">shopping_cart</i><a href="#/vendedores/pedidos">Gestion de Pedidos</a>
+                    </li>
+                    <li>
+                        <i class="material-icons left">trending_up</i><a href="#/vendedores/estadisticas">Estadisticas</a>
+                    </li>                         
+                                     
+                </ul>
+            </div>
+            <div ng-view id="container" style="padding-left:220px">
+
+            </div>
+        
+
+        <!-- jQuery and  -->
+
+        
+
+          <!-- controladores-->
+        <script src="../public/scripts/controllers/indexController.js" type="text/javascript"></script>
+        <script src="../public/scripts/controllers/homeController.js" type="text/javascript"></script>
+        <script src="../public/scripts/controllers/vendedoresController.js" type="text/javascript"></script>
+        <script src="../public/scripts/controllers/productosController.js" type="text/javascript"></script>
+        <script src="../public/scripts/controllers/marcasController.js" type="text/javascript"></script>
+        <script src="../public/scripts/controllers/categoriasController.js" type="text/javascript"></script>
+        <script src="../public/scripts/controllers/subcategoriasController.js" type="text/javascript">
+        </script>
+        <script src="../public/scripts/controllers/serviciosController.js" type="text/javascript"></script>
+           
+        <!-- servicios-->
+        <script src="../public/scripts/services/vendedoresService.js" type="text/javascript"></script>
+        <script src="../public/scripts/services/marcasService.js" type="text/javascript"></script>
+        <script src="../public/scripts/services/categoriasService.js" type="text/javascript"></script>
+        <script src="../public/scripts/services/subcategoriasService.js" type="text/javascript"></script>
+        <script src="../public/scripts/services/productosService.js" type="text/javascript"></script>
+         <script src="../public/scripts/services/serviciosService.js" type="text/javascript"></script>
+         <script src="../public/scripts/controllers/productosController.js" type="text/javascript"></script>
+        <script src="../public/scripts/controllers/categoriasController.js" type="text/javascript"></script>
+        <script src="../public/scripts/controllers/catalogoController.js" type="text/javascript"></script>
+        <script src="../public/scripts/controllers/clientesController.js" type="text/javascript"></script>
+        <script src="../public/scripts/controllers/pedidosController.js" type="text/javascript"></script>
+        <script src="../public/scripts/controllers/estadisticasVendedor.js" type="text/javascript"></script>
+
+           
+        <!-- servicios-->
+        <script src="../public/scripts/services/categoriasService.js" type="text/javascript"></script>
+        <script src="../public/scripts/services/productosService.js" type="text/javascript"></script>
+        <script src="../public/scripts/services/subcategoriasService.js" type="text/javascript"></script>
+        <script src="../public/scripts/services/pedidosService.js" type="text/javascript"></script>
+        <script src="../public/scripts/services/clientesService.js" type="text/javascript"></script>
+        <script>
+
+
+
+        var abierto;
+        $(document).ready(function() {
+            abierto = true;
+            var alto = $(window).height();
+            document.getElementById('slide-out').style.height = alto - 40 + "px";
+        });
+        function abrirMenu() {
+            if (abierto) {
+                $("#slide-out").animate({"left": "-=220px"}, 300);
+                $("#container").animate({"padding-left": "-=220px"}, 300);
+                abierto = false;
+            } else {
+                abierto = true;
+                $("#slide-out").animate({"left": "+=220px"}, 300);
+                $("#container").animate({"padding-left": "+=220px"}, 300);
+            }
+        }
+        </script>
+    </body>
+</html>

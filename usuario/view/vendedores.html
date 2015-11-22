@@ -1,0 +1,151 @@
+ <div ng-controller="vendedoresController" class="contenedor"> 
+     <div class="row white">
+         <div class="col s12 z-depth-1">
+             <div class="contenedor">
+                 <div class="row">
+                     <div class="col s8">
+                         <h2>Gestion de Vendedores</h2>  
+                     </div>
+                     <div class="col s4">
+                     <div class="input-field col s12">
+	          	<i class="material-icons prefix">search</i>
+	          	<input id="icon_prefix" type="text" class="validate" ng-model= "filtro">
+	         	<label for="icon_prefix">Filtro</label>
+	        </div>
+                        
+                     </div>
+                 </div>   
+                 <div class="row">
+                     <div class="col s12">
+                        <table class="striped bordered">
+                            <thead> 
+					<th>Id</th>
+					<th>Cédula</th>
+					<th>Nombres</th>
+					<th>Apellidos</th>
+					<th>Teléfono</th>
+					<th>Dirección</th>
+                                        <th>Correo</th>
+					<th>Acciones</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="vendedor in Vendedores | filter : filtro">
+						<td>{{vendedor.idvendedores}}</td>
+						<td>{{vendedor.cedula}}</td>
+						<td>{{vendedor.nombres}}</td>
+						<td>{{vendedor.apellidos}}</td>
+						<td>{{vendedor.telefono}}</td>
+						<td>{{vendedor.direccion}}</td>
+                                                <td>{{vendedor.usuario}}</td>
+						<td>
+                                                       <a href="javascript:;" ng-click="consultar(vendedor.id)"><i class = "material-icons prefix">visibility</i></a>
+							<a href="javascript:;" ng-click="modificar(vendedor)"><i class = "material-icons prefix">mode_edit</i></a>
+							<a href="javascript:;" ng-click="eliminar(vendedor.id)"><i class = "material-icons prefix">delete</i></a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+                 </div>
+             </div>
+         </div>
+     </div>
+     
+         <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+			<a class="btn-floating btn-large waves-effect waves-light orange" ng-click="nuevo()">
+				<i class="material-icons">add</i>
+			</a>
+		</div>
+     
+		<div id="modalVendedores" class="modal modal-fixed-footer">
+                   
+			<form action="" name="frmVendedores">
+		 		<div class="modal-content">
+		 			<h2>{{titulo}}</h2>
+			    	<div class="row">
+			    		<div class="col s6">
+			    			<div class="input-field">
+                                                     <i class="material-icons prefix">assignment_ind</i>
+								<input id="cedula" name="cedula" type="text" ng-model="Vendedor.cedula" required
+								ng-class="{invalid:!frmVendedores.$pristine && frmVendedores.cedula.$error.required || frmVendedores.cedula.$error.pattern}" ng-pattern="/^[0-9]*$/" ng-minlength="6">
+								<label for="cedula" class="{{active}}">Cédula</label>
+								<small><span class="red-text" ng-show="!frmVendedores.$pristine && frmVendedores.cedula.$error.required">Cédula Es Obligatorio.</span></small>
+								<small><span class="red-text" ng-show="!frmVendedores.cedula.$pristine  && frmVendedores.cedula.$error.pattern">Solo Números</span></small>
+								<small><span class="red-text" ng-show="!frmVendedores.$pristine && frmVendedores.cedula.$error.minlength">Mínimo 6 Caracteres.</span></small>
+							</div>
+			    		</div>
+			    	</div>
+			    	<div class="row">
+			    		<div class="col s6">
+			    			<div class="input-field">
+                                                    <i class="material-icons prefix">account_circle</i>
+								<input id="nombres" type="text" name="nombres"  ng-model="Vendedor.nombres" required 
+								ng-class="{invalid:!frmVendedores.$pristine && frmVendedores.nombres.$error.required}">
+								<label for="nombres" class="{{active}}">Nombres</label>
+								<small><span class="red-text" ng-show="!frmVendedores.$pristine && frmVendedores.nombres.$error.required">Nombres Es Obligatorio.</span></small>
+							</div>
+			    		</div>
+			    		<div class="col s6">
+			    			<div class="input-field">
+                                                     <i class="material-icons prefix">account_circle</i>
+								<input id="apellido" name="apellido" type="text" ng-model="Vendedor.apellidos" required ng-class="{invalid:!frmVendedores.$pristine && frmVendedores.apellido.$error.required}">
+								<label for="apellido" class="{{active}}">Apellidos</label>
+								<small><span class="red-text" ng-show="!frmVendedores.$pristine && frmVendedores.apellido.$error.required">Apellidos Es Obligatorio.</span></small>
+							</div>
+			    		</div>
+			    	</div> 
+
+			    	<div class="row">
+			    		<div class="col s6">
+			    			<div class="input-field">
+                                                    <i class="material-icons prefix">location_on</i>
+								<input id="direccion" name="direccion" type="text" ng-model="Vendedor.direccion" required ng-class="{invalid:!frmVendedores.$pristine && frmVendedores.direccion.$error.required}">
+								<label for="direccion" class="{{active}}">Dirección</label>
+								<small><span class="red-text" ng-show="!frmVendedores.$pristine && frmVendedores.direccion.$error.required">Dirección Es Obligatorio.</span></small>
+							</div>
+			    		</div>
+			    		<div class="col s6">
+			    			<div class="input-field">
+                                                    <i class="material-icons prefix">phone_android</i>
+								<input id="telefono" type="text" name="telefono" ng-model="Vendedor.telefono" required ng-class="{invalid:!frmVendedores.$pristine && frmVendedores.telefono.$error.required || frmVendedores.telefono.$error.pattern}" ng-pattern="/^[0-9]*$/" ng-minlength="7">
+								<label for="telefono" class="{{active}}">Teléfono</label>
+								<small><span class="red-text" ng-show="!frmVendedores.$pristine && frmVendedores.telefono.$error.required">Teléfono Es Obligatorio.</span></small>
+								<small><span class="red-text" ng-show="!frmVendedores.telefono.$pristine && frmVendedores.telefono.$error.pattern">Solo Números</span></small>
+								<small><span class="red-text" ng-show="!frmVendedores.$pristine && frmVendedores.telefono.$error.minlength">Mínimo 7 Caracteres.</span></small>
+							</div>
+			    		</div>	    		
+			    	</div>
+                                        <div class="row">
+			    		<div class="col s6">
+			    			<div class="input-field">
+                                                    <i class="material-icons prefix">email</i>
+								<input id="correo" name="correo" type="email" ng-model="Vendedor.correo" required ng-class="{invalid:!frmVendedores.$pristine && frmVendedores.direccion.$error.required}">
+								<label for="correo" class="{{active}}">Correo</label>
+								<small><span class="red-text" ng-show="!frmVendedores.$pristine && frmVendedores.correo.$error.required">El correo Es Obligatorio.</span></small>
+							</div>
+			    		</div>
+			    		<div class="col s6">
+			    			<div class="input-field">
+                                                    <i class="material-icons prefix">lock</i>
+								<input id="contrasena" type="password" name="contrasena" ng-model="Vendedor.contrasena" required ng-class="{invalid:!frmVendedores.$pristine && frmVendedores.contrasena.$error.required}"  ng-minlength="6">
+								<label for="contrasena" class="{{active}}">Contraseña</label>
+								<small><span class="red-text" ng-show="!frmVendedores.$pristine && frmVendedores.contrasena.$error.required">La contraseña es obligatoria.</span></small>
+								<small><span class="red-text" ng-show="!frmVendedores.$pristine && frmVendedores.contrasena.$error.minlength">Mínimo 7 Caracteres.</span></small>
+							</div>
+			    		</div>	    		
+			    	</div>
+			    	
+			    </div>
+			    
+				<div class="modal-footer">
+					<a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red" style="margin-left:10px;">Salir</a>
+					<input type="button"  class="waves-effect waves-light btn orange" ng-click="guardar()" ng-hide="editMode" ng-disabled="!frmVendedores.$valid" value="Guardar">
+					<input type="button"  class="waves-effect waves-light btn orange" ng-click="update()" ng-show="editMode"  ng-disabled="!frmVendedores.$valid" value="Modificar">
+				</div>
+			</form>
+		</div>
+
+		
+	</div>
+
+

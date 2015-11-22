@@ -1,0 +1,70 @@
+ <div  ng-controller="">
+<div class="crosscover">
+    <div class="crosscover-overlay">
+        <div class="crosscover-island">
+            <img src="../public/images/logo.png" class="responsive-img" width="400px">
+            <h2 class="crosscover-description">Grupo Ferretero La Roca</h2>
+        </div>
+    </div>
+    <ul class="crosscover-list">
+        
+       <!-- <video id="video" autoplay="autoplay" preload="auto" loop="loop" poster="./images/1.jpg" width="100%" muted="muted">
+                      <source src="./images/video.webm" type="video/webm"/>
+                      <source src="./images/video.mp4" type="video/mp4"/>
+            </video>-->
+    
+        <li><img src="./images/2.jpg" alt="image02"/></li>
+        <li><img src="./images/3.jpg" alt="image03"/></li>
+        <li><img src="./images/4.jpg" alt="image04"/></li>
+        <li><img src="./images/5.jpg" alt="image05"/></li>
+        <li><img src="./images/6.jpg" alt="image05"/></li>
+    </ul>
+</div>
+<div class="section no-pad-bot " style="margin-top: -7%;z-index:3;position: relative;">
+    <div class="row">
+        <div class="col s10 white z-depth-1 " style="margin-left:8.33333%;">
+            <br>
+            <article>
+                <div class="entry-content" >
+                    <div class="col l10 m8 s12">
+                        <span class="grey-text text-darken-4 light"><h2>Grupo Ferretero&nbsp;<span style="font-weight:900">LA ROCA<span></h2>
+                      
+                        </span>
+                       
+                    </div>
+                </div>
+                
+            </article>
+          
+        </div>
+    </div>
+</div>
+<div class="section">
+   
+ </div>
+
+
+
+</div>
+ 
+
+<script>
+
+    $(".crosscover").crosscover({
+        animateInClass: 'fade-in',
+        animateOutClass: 'fade-out',
+        interval: 5000,
+        startIndex: 0,
+        autoPlay: true,
+        controller: true,
+        controllerClass: 'crosscover-controller',
+        prevClass: 'crosscover-prev',
+        nextClass: 'crosscover-next',
+        playerClass: 'crosscover-player',
+        playerActiveClass: 'is-playing',
+        playerInnerHtml: '<span class="crosscover-icon-player"></span>',
+        prevInnerHtml: '<span class="crosscover-icon-prev"></span>',
+        nextInnerHtml: '<span class="crosscover-icon-next"></span>'
+    });
+
+</script> 

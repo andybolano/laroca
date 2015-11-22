@@ -1,0 +1,74 @@
+<div ng-controller="pedidosController">
+	<div class="container">
+		
+	
+		<form action="" name="frmVendedores">
+			<div class="modal-content">
+			<br><br>
+				<h2>Verificación de Datos</h2>
+			<div class="row">
+				<div class="col s6">
+					<div class="input-field">
+		                <i class="material-icons prefix">assignment_ind</i>
+						<input id="cedula" name="cedula" type="text" ng-model="Vendedor.cedula" required
+						ng-class="{invalid:!frmVendedores.$pristine && frmVendedores.cedula.$error.required || frmVendedores.cedula.$error.pattern}" ng-pattern="/^[0-9]*$/" ng-minlength="6">
+						<label for="cedula" class="{{active}}">Cédula</label>
+						<small><span class="red-text" ng-show="!frmVendedores.$pristine && frmVendedores.cedula.$error.required">Cédula Es Obligatorio.</span></small>
+						<small><span class="red-text" ng-show="!frmVendedores.cedula.$pristine  && frmVendedores.cedula.$error.pattern">Solo Números</span></small>
+						<small><span class="red-text" ng-show="!frmVendedores.$pristine && frmVendedores.cedula.$error.minlength">Mínimo 6 Caracteres.</span></small>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s6">
+					<div class="input-field">
+		                <i class="material-icons prefix">account_circle</i>
+						<input id="nombres" type="text" name="nombres"  ng-model="Vendedor.nombres" required 
+						ng-class="{invalid:!frmVendedores.$pristine && frmVendedores.nombres.$error.required}">
+						<label for="nombres" class="{{active}}">Nombres</label>
+						<small><span class="red-text" ng-show="!frmVendedores.$pristine && frmVendedores.nombres.$error.required">Nombres Es Obligatorio.</span></small>
+					</div>
+				</div>
+				<div class="col s6">
+					<div class="input-field">
+		                 <i class="material-icons prefix">account_circle</i>
+						<input id="apellido" name="apellido" type="text" ng-model="Vendedor.apellidos" required ng-class="{invalid:!frmVendedores.$pristine && frmVendedores.apellido.$error.required}">
+						<label for="apellido" class="{{active}}">Apellidos</label>
+						<small><span class="red-text" ng-show="!frmVendedores.$pristine && frmVendedores.apellido.$error.required">Apellidos Es Obligatorio.</span></small>
+					</div>
+				</div>
+			</div> 
+
+			<div class="row">
+				<div class="col s6">
+					<div class="input-field">
+		                <i class="material-icons prefix">location_on</i>
+						<input id="direccion" name="direccion" type="text" ng-model="Vendedor.direccion" required ng-class="{invalid:!frmVendedores.$pristine && frmVendedores.direccion.$error.required}">
+						<label for="direccion" class="{{active}}">Dirección</label>
+						<small><span class="red-text" ng-show="!frmVendedores.$pristine && frmVendedores.direccion.$error.required">Dirección Es Obligatorio.</span></small>
+					</div>
+				</div>
+				<div class="col s6">
+					<div class="input-field">
+		                <i class="material-icons prefix">phone_android</i>
+						<input id="telefono" type="text" name="telefono" ng-model="Vendedor.telefono" required ng-class="{invalid:!frmVendedores.$pristine && frmVendedores.telefono.$error.required || frmVendedores.telefono.$error.pattern}" ng-pattern="/^[0-9]*$/" ng-minlength="7">
+						<label for="telefono" class="{{active}}">Teléfono</label>
+						<small><span class="red-text" ng-show="!frmVendedores.$pristine && frmVendedores.telefono.$error.required">Teléfono Es Obligatorio.</span></small>
+						<small><span class="red-text" ng-show="!frmVendedores.telefono.$pristine && frmVendedores.telefono.$error.pattern">Solo Números</span></small>
+						<small><span class="red-text" ng-show="!frmVendedores.$pristine && frmVendedores.telefono.$error.minlength">Mínimo 7 Caracteres.</span></small>
+					</div>
+				</div>	    		
+			</div>
+		   	<div class="row">	
+				<div class="col s6">
+	    			<br>
+	    			<input class="with-gap" name="formaPedido" type="radio" id="domicilio" value="domicilio" />
+	  				<label for="domicilio">Despacho Domicilio</label>
+	  				<input class="with-gap" name="formaPedido" type="radio" id="tienda" value="tienda" />
+	  				<label for="tienda">Retiro en Tienda</label>
+	    		</div>	
+			</div>
+			<input type="button" class="waves-effect waves-light btn orange" ng-click="comprar()" value= "Comprar" ng-disabled="!frmVendedores.$valid">
+		</form>
+	</div>
+</div>
