@@ -38,7 +38,7 @@
 						<td>{{vendedor.direccion}}</td>
                                                 <td>{{vendedor.usuario}}</td>
 						<td>
-                                                       <a href="javascript:;" ng-click="consultar(vendedor.id)"><i class = "material-icons prefix">visibility</i></a>
+                                                       <a href="#/detallesVendedores" ng-click="loadPedidos(vendedor.cedula)"><i class = "material-icons prefix">visibility</i></a>
 							<a href="javascript:;" ng-click="modificar(vendedor)"><i class = "material-icons prefix">mode_edit</i></a>
 							<a href="javascript:;" ng-click="eliminar(vendedor.id)"><i class = "material-icons prefix">delete</i></a>
 						</td>

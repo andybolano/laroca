@@ -68,7 +68,6 @@ app.controller('clientesController', function($scope,clienteService,pedidosServi
             correo : $scope.Cliente.correo,
         };
 
-        console.log(object);
         var promiseGet = clienteService.post(object); 
         promiseGet.then(function (pl) {
             comprar(pl.data.cedula);
@@ -94,13 +93,14 @@ app.controller('clientesController', function($scope,clienteService,pedidosServi
             idCliente : cedula,
             total : total,
             detalles : JSON.stringify($scope.Pedidos),
-            domicilio : domicilio,
+            domicilio : domicilio
         };
-        console.log(JSON.stringify(object));
+       
         var promisePost = pedidosService.post(object); 
         promisePost.then(function (pl) {
            Materialize.toast(pl.data.message, 5000, 'rounded');
            localStorage.removeItem("carrito");
+            window.location.href = "../cliente/";
         },
         function (errorPl) {
             console.log('Error Al Cargar Datos', errorPl);

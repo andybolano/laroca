@@ -1,15 +1,26 @@
 app.controller('pedidosController', function($scope,vendedoresService,pedidosService){
     $scope.Pedidos = [];
+     $scope.PedidosClientes = {};
+     
+     $scope.PedidosClientesEspera = {};
+     $scope.PedidosClientesConfirmado = {};
+     $scope.PedidosClientesDespachado = {};
+     
+     $scope.DetallePedido = {};
     $scope.active;
+    $scope.boton;
     $scope.Vendedor = {};
     loadVendedor();
+  loadPedidosEspera();
+    loadPedidosConfirmado();
+    loadPedidosDespachado();
 
     function loadVendedor () {
         var promiseGet = vendedoresService.get(187668986); 
         promiseGet.then(function (pl) {
             $scope.Vendedor = pl.data;
             $scope.active = "active";
-            console.log(JSON.stringify($scope.Vendedor));
+
         },
         function (errorPl) {
             console.log('Error Al Cargar Datos', errorPl);
@@ -37,17 +48,91 @@ app.controller('pedidosController', function($scope,vendedoresService,pedidosSer
         var promisePost = pedidosService.postVendedor(object); 
         promisePost.then(function (pl) {
            Materialize.toast(pl.data.message, 5000, 'rounded');
-           localStorage.removeItem("carrito");
+           localStorage.removeItem("carritoVendedor");
+        },
+        function (errorPl) {
+            console.log('Error Al Cargar Datos', errorPl);
+        });
+    };
+
+    $scope.verpedido = function(cliente) {
+        $scope.DetallePedido = "";
+        $scope.DetallePedido = cliente;
+        $scope.title = "Gestion de Pedidos";
+        if(cliente.estadoPedido == "Espera"){
+             $scope.editMode = true;
+        $scope.boton = "Confirmar Pedido";
+        }else if(cliente.estadoPedido == "Confirmado"){
+            $scope.editMode = true;
+            $scope.boton = "Despachar Pedido";
+        }else{
+              $scope.editMode = false;
+        }
+        $scope.active = "";
+        $('#modalPedido').openModal();
+          var promiseGet = pedidosService.getPedidosDetalles(cliente.idPedido); 
+        promiseGet.then(function (pl) {
+          $scope.Pedidos =   pl.data;
+        },
+        function (errorPl) {
+            console.log('Error Al Cargar Datos', errorPl);
+        });
+    };  
+    
+   function loadPedidosEspera (){
+          var promiseGet = pedidosService.getPedidos("Espera"); 
+        promiseGet.then(function (pl) {
+                $scope.PedidosClientesEspera = pl.data; 
         },
         function (errorPl) {
             console.log('Error Al Cargar Datos', errorPl);
         });
     }
-
-    $scope.redireccionar = function  () {
+    function loadPedidosConfirmado(){
+          var promiseGet = pedidosService.getPedidos("Confirmado"); 
+        promiseGet.then(function (pl) {
+                $scope.PedidosClientesConfirmado = pl.data; 
+        },
+        function (errorPl) {
+            console.log('Error Al Cargar Datos', errorPl);
+        });
+    }
+     function loadPedidosDespachado(){
+          var promiseGet = pedidosService.getPedidos("Despachado"); 
+        promiseGet.then(function (pl) {
+                $scope.PedidosClientesDespachado = pl.data; 
+        },
+        function (errorPl) {
+            console.log('Error Al Cargar Datos', errorPl);
+        });
+    }
+    
+    $scope.cambiarEstadoPedido = function (idPedido,estadoPedido){
+        var nuevoEstado;
+        if(estadoPedido == "Espera"){
+            nuevoEstado="Confirmado";
+        }else if(estadoPedido == "Confirmado"){
+            nuevoEstado="Despachado";
+        }
+   
+       
+         var promiseGet = pedidosService.updateEstado(idPedido,nuevoEstado); 
+        promiseGet.then(function (pl) {
+             
+            $('#modalPedido').closeModal();
+          Materialize.toast(pl.data.message, 5000, 'rounded');
+         setTimeout(recargar(),5000);
+          
+        },
+        function (errorPl) {
+            console.log('Error Al Cargar Datos', errorPl);
+        });
         
-    }   
+    };
 
+function recargar(){
+    javascript:location.reload();
+}
 
 
 

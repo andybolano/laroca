@@ -114,7 +114,8 @@ app.controller('productosController', function($scope,productosService,categoria
         formData.append('categoria', $scope.Producto.idCategoria);
         formData.append('subcategoria', $scope.Producto.idSubcategoria);
         formData.append('precio', $scope.Producto.precio);
-        formData.append('precioVenta', $scope.Producto.precioVenta);
+        formData.append('porcentajeDescuento', $scope.Producto.porcentajeDescuento);
+        formData.append('porcentajeVendedor', $scope.Producto.porcentajeVendedor);
         formData.append('presentacion', $scope.Producto.presentacion);
         formData.append('descripcion', $scope.Producto.descripcion);
         
@@ -153,11 +154,12 @@ app.controller('productosController', function($scope,productosService,categoria
         categoria:$scope.Producto.idCategoria,
         subcategoria: $scope.Producto.idSubcategoria,
         precio: $scope.Producto.precio,
-        precioVenta: $scope.Producto.precioVenta,
+        porcentajeDescuento: $scope.Producto.porcentajeDescuento,
+        porcentajeVendedor:$scope.Producto.porcentajeVendedor,
         presentacion: $scope.Producto.presentacion,
         descripcion: $scope.Producto.descripcion
         };
-     console.log(object)
+
         var promisePut  = productosService.put($scope.Producto.id, object);
         
         promisePut.then(function (d) {

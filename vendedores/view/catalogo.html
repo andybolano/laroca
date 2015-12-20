@@ -1,127 +1,107 @@
 <div ng-controller="catalogoController">
-	<div class="">
-		 <nav  class="z-depth-1">                 
-            <div class="nav-wrapper black accent-4">
-                <div class="container">                    
-                    <ul class="left">
-                        <li ng-repeat="categoria in Categorias">
-                        	<a href="javascript:;" ng-click="loadSubCategoria(categoria.id)">{{categoria.nombre}}</a>
+	 <div class="row  red darken-4" >
+       <div class="col s12" style="height:40px;">         
+                <div>                    
+                     <ul class="tabs-min">
+                       <li ng-repeat="categoria in Categorias" class="left item">
+                        <a href="javascript:;" ng-click="loadSubCategoria(categoria.id)" style=" color:#FFFFFF;">{{categoria.nombre}}</a>
                         </li>
-                        <li>
-                            <a href="javascript:;" ng-click="carrito()" ng-click="">Carrito de Compra</a>
-                        </li>
-                    </ul>                  
+                    </ul> 
                 </div>
-            </div>
-        </nav>
-        <div class="row">
-        	<div class="col s2" ng-hide="mostrar">
-        		<table class="bordered">
-        			<thead>
-        				<th>SUBCATEGORIAS</th>
+          
+         </div>
+     </div>
+        <div class="row" style="padding:20px">
+        	<div class="col s2 z-depth-1 red darken-1" ng-hide="mostrar" style="padding: 10px;">
+        		<table>
+        			<tr>
+                                <th><h2 style="color:#FFFFFF;font-weight:900">Categorias</h2></th>
         			</thead>
         			<tbody>
-        				<tr ng-repeat="subCategoria in subCategorias">
+                                   
+        				<tr  ng-repeat="subCategoria in subCategorias">
         					<td>
-        						<a href="javascript:;" ng-click="loadProductos(subCategoria.id)">{{subCategoria.nombre}}</a>
+        						<a  href="javascript:;" ng-click="loadProductos(subCategoria.id)" style="padding-top:3px;padding-bottom:3px;color:#FFFFFF;">{{subCategoria.nombre}}</a>
         					</td>
         				</tr>
+                                    
         			</tbody>
         		</table>
         	</div>
         	<div class="col s10" ng-hide="mostrarProductos">
         		<div class="col s3" ng-repeat="producto in Productos" ng-click = "detallesProducto(producto)">
-                    <div class="card small">
+                    <div class="card">
                         <div class="card-image">
                             <img src="{{producto.ruta}}" alt="">
                         </div>
                         <div class="card-content">
-                            <div class="row">
-                                <h4>{{producto.nombre}}</h4>
-                            </div>
-                            <div class="row">
-                                <p>{{producto.descripcion}}</p>
-                            </div>
+                           
+                                <h2>{{producto.nombre}}&nbsp;{{producto.nombreMarca}}</h2>                  
+                               <div class="descripcion">
+                                   <i class="used">{{producto.descripcion}}</i>
+                               </div>                            
+                          
+               
                         </div>
-                        <div class="card-action">
+                        <div class="card-action row">
+                         
+                               <span class="col s6">
+                               </span>
+                              <span class="col s6 price">{{ producto.precio | currency}}</span>
+                           
+                        </div>
+                    </div>  
                             
-                        </div>
-                    </div>    
-                </div>
+                      
+                   
+                
         	</div>
         </div>
 	</div>
-    <div class="modal" id="modalDetalles">
+   <div class="modal" id="modalDetalles" style="width: 90%;min-height:85%;">
         <div class="modal-content">
+
+              <div class="fixed-action-btn" style="top:10px; right: 24px;">
+			<a class="btn-floating btn-small modal-close waves-effect waves-light red right" >
+				<i class="material-icons">close</i>
+			</a>
+		</div>
+              
             <div class="row">
-                <div class="col s4">
-                    <img src="{{Producto.ruta}}" alt="">
+                <div class="col s5">
+                    <img src="{{Producto.ruta}}" width="100%" alt="">
                 </div>
-                <div class="col s8">
+                <div class="col s7">
                     <h4>
-                        {{Producto.nombre}}
+                        {{Producto.nombre}} {{Producto.nombreMarca}}
                     </h4>
                     <p>
-                        {{Producto.descripcion}}
+                        <img src="{{Producto.rutaMarca}}" width="100px;">
                     </p>
                     <p>
-                        Presentación : {{Producto.presentacion}}
+                        <i class="material-icons left">insert_comment</i><span style="font-weight:600">Descripicion: </span> {{Producto.descripcion}}
                     </p>
                     <p>
-                        Precio : {{Producto.precio | currency}}
+                       <i class="material-icons left">redeem</i> <span style="font-weight:600">Presentaciòn: </span> {{Producto.presentacion}}
                     </p>
                     <p>
-                        Precio Venta : {{Producto.precioVenta | currency}}
-                    </p>
-                    <p>
-                        Ganancia : {{Producto.precioVenta - Producto.precio | currency}}
+                      <i class="material-icons left">attach_money</i> <span style="font-weight:600">Precio: </span> {{Producto.precio | currency}}
                     </p>
                     <div class="row">
-                        <div class="col s4">
-                            <div class="input-field">
-                                <input id="cantidad" type="number" name="cantidad" ng-model="Pedido.cantidad">
-                                <label for="cantidad" >Cantidad</label>
-                            </div>
+                        <div class="col s2">
+                          <span style="font-weight:600">Cantidad: </span>
+                                <input id="cantidad" type="number" name="cantidad" ng-model="Pedido.cantidad" >
                         </div>
+                        
                     </div>
-                    
+                    <div class="col s6">
+                             <a href="javascript:;" class="waves-effect waves-light btn orange" ng-click="agregarCarritoVendedor(Producto)"><i class="material-icons left">add_shopping_cart</i>Agregar al Carrito</a>
+                        </div>
+                     
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <a href="javascript:;" class="waves-effect waves-light btn red" style="margin-left:10px;">Salir</a>
-            <a href="javascript:;" class="waves-effect waves-light btn orange" ng-click="agregarCarritoVendedor(Producto)">Agregar</a>
-        </div>
+
     </div>
-    <div class="modal" id="modalCarrito">
-        <div class="modal-content">
-            <div class="row">
-                <table class="bordered">
-                    <thead>
-                        <th>Id</th>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Precio</th>
-                        <th>Subtotal</th>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="pedido in PedidosVendedor">
-                            <td style="width:60px;">{{pedido.idProducto}}</td>
-                            <td>{{pedido.nombre}}</td>
-                            <td style="width: 30px;text-aling: center">
-                                <input type="number" value="{{pedido.cantidad}}" style="text-align:center;"
-                                ng-keyup="cambiarCantidadVendedor($index)" id="pedido{{$index}}">
-                            </td>
-                            <td style="width:60px;">{{pedido.precio|currency}}</td>
-                            <td style="width:60px;">{{pedido.subtotal|currency}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <a href="javascript:;" class="waves-effect waves-light btn red" style="margin-left:10px;">Salir</a>
-            <a href="javascript:;" ng-click="redireccionarVendedor()" class="waves-effect waves-light btn orange" >Comprar</a>
-        </div>
-    </div>
+
 </div>

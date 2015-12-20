@@ -11,6 +11,16 @@
         <link href="../public/css/style.css" rel="stylesheet"/>
          <link rel="shortcut icon" href="../public/favicon.ico" type="image/x-icon">
          <link rel="icon" href="../public/favicon.ico" type="image/x-icon">
+            <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script> 
+<!--Start of Zopim Live Chat Script-->
+<script type="text/javascript">
+window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+_.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
+$.src="//v2.zopim.com/?3XlcVZ4EqGi321Mu49zqE3xois0ohn6J";z.t=+new Date;$.
+type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
+</script>
+<!--End of Zopim Live Chat Script-->
     </head>
     <body>
         <div class="navbar-fixed " style="height:26px;padding: 0;margin: 0; ">
@@ -21,7 +31,7 @@
                  </div> 
             
                      <div class="right" style="margin-right:5px;margin-top:6px;">
-                         <a href="#" target="_blank" style="position: absolute;float:right;margin-left: -320px;">Atencion al cliente: 588987 - 3102564</a>
+                         <a href="#" target="_blank" style="position: absolute;float:right;margin-left: -400px;">Atencion al cliente: 5839958 - 5839303 - 5838798</a>
                          <a href="#" target="_blank" style="position: absolute;float:right;margin-left: -60px;">Sìguenos:</a>
                          <a href="#" target="_blank" class="fa"><img src="../public/images/facebook.png" width="16px"></img></a>     
                          <a href="#" target="_blank" class="fa"><img src="../public/images/instagram.png" width="16px"></img></a>
@@ -37,23 +47,64 @@
                             <a href="#/home" class="brand-logo" style="margin-left:5px;margin-top: 6px;"><img src="../public/images/logo.png" width="160px;"></a>
                             <ul class="right">
                                 <li><a href="#/home">Home</a></li>
-                                <li><a href="#/clientes/productos">Productos</a></li>
-                                <li><a href="/magazin/">Servicios</a></li>                             
+                                <li><a href="#/clientes/productos">Catalogo</a></li>
+                                <li><a href="#/clientes/servicios">Servicios</a></li>                             
                                 <li><a href="/magazin/bildung-forschung/">Quienes Somos</a></li>
                                 <li><a href="/magazin/events/">Trabaja con nosotros</a></li>
                                 <li><a href="/magazin/companies/">Contactenos</a></li>
-                                 <li><a href="javascript:;" ng-click="carrito()"><i class="material-icons left">shopping_cart</i>Carrito de Compras</a></li>
+                                 <li ng-controller="catalogoController"><a href="javascript:;" ng-click="carrito()"><i class="material-icons left">shopping_cart</i>Carrito de Compras</a></li>
                             </ul>
 
                           
                         </div>
                     </div>
                 </nav>
-           
+        
+      <div class="modal" id="modalCarrito" ng-controller="catalogoController"  style="width: 90%;min-height:85%;">
+        <div class="modal-content">
+            <h2><i class="material-icons">shopping_cart</i>Carrito de compras</h2>
+            <div class="row">
+                <table>
+                    <thead>
+                        <th>Id</th>
+                        <th>imagen</th>
+                        <th>Producto</th>
+                        <th style=" text-align: center">Cantidad</th>
+                        <th style="width:60px; text-align: right">Precio</th>
+                        <th style="width:60px; text-align: right">Subtotal</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="pedido in Pedidos">
+                            <td style="width:60px;">{{pedido.idProducto}}</td>
+                            <td width="100px"><img src="{{pedido.imagen}}" width="60px;"></td>
+                            <td width="100px;">{{pedido.nombre}} {{pedido.marca}}</td>
+                            <td style="width: 20px;text-align:center">
+                                <input type="number" value="{{pedido.cantidad}}" style="text-align:center;"
+                                ng-keyup="cambiarCantidad($index)" id="pedido{{$index}}">
+                            </td>
+                            <td style="width:60px; text-align: right">{{pedido.precio | currency}}</td>
+                            <td style="width:60px; text-align: right" align="right"><span style="font-weight:600">{{pedido.subtotal|currency}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="row">
+                    <hr>
+                    <div class="col s12">
+                      <h2 class="right">TOTAL:<span id="grantotal" style="font-weight: 900"></span></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:;" class="modal-close waves-effect waves-light btn red" style="margin-left:10px;">Salir</a>
+            <a href="javascript:;" ng-click="redireccionar()" class="waves-effect waves-light btn orange" > <i class="material-icons left">attach_money</i>Comprar</a>
+        </div>
+    </div>
           <div ng-view id="container">
 
             </div>
-        
+       
         
  <div id="marcasController" ng-controller="marcasController">
       <div class="row" style="margin-bottom: 0">
@@ -64,6 +115,7 @@
             </div>
           </div>
       </div>
+ </div>
  </div>
           <footer class="page-footer orange darken-3"  style="margin-top: 0;">
           <div class="container">
@@ -96,15 +148,15 @@
                 <table width="10%" class="white-text">
                     <tr>
                         <td style="font-weight:900">Direccion:</td>
-                        <td>Carrera 43 # 82 - 136</td>
+                        <td>Cra 41 # 2-05 Barrio La Roca, Valledupar - Cesar</td>
                     </tr>
                     <tr>
                         <td style="font-weight:900">Email:</td>
                         <td>clientes@gflaroca.com</td>
                     </tr>
                     <tr>
-                        <td style="font-weight:900">Telefonos:</td>
-                        <td><i class="material-icons left"></i>5899633 - 31056987</td>
+                        <td style="font-weight:900">Celulares:</td>
+                        <td><i class="material-icons left"></i>3013293333 - 3043250888</td>
                     </tr>
                         
                 </table>
@@ -114,7 +166,7 @@
                 <ul>
                   <li><a class="grey-text text-lighten-3" href="#/home">Home</a></li>
                   <li><a class="grey-text text-lighten-3" href="#/clientes/productos">Productos</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Servicios</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#/clientes/servicios">Servicios</a></li>
                   <li><a class="grey-text text-lighten-3" href="#!">Quienes somos</a></li>
                   <li><a class="grey-text text-lighten-3" href="#!">Trabaja con nosotros</a></li>
                   <li><a class="grey-text text-lighten-3" href="#!">Contactanos</a></li>
@@ -159,7 +211,7 @@
           setInterval(function(){
           $('#marcas div:first-child').fadeOut(0)
              .next('div').fadeIn(1000)
-             .end().appendTo('#marcas');}, 5000);
+             .end().appendTo('#marcas');}, 3000);
  
      $(document).ready(function () {
                 var scope = angular.element($('#marcasController')).scope();

@@ -8,15 +8,19 @@ var app;
             
             
             $routeProvider
-            .when("/home",{
-                        templateUrl: 'home.html'
-                    })
+          
                   
                     .when("/vendedores", {
                         templateUrl: 'vendedores.html'
                     })
-                    .when("/pedidos", {
-                        templateUrl: 'pedidos.html'
+                    .when("/detallesVendedores", {
+                        templateUrl: 'detallesVendedores.html'
+                    })
+                    .when("/pedidosClientes", {
+                        templateUrl: 'pedidosClientes.html'
+                    })
+                    .when("/pedidosVendedores", {
+                        templateUrl: 'pedidosVendedores.html'
                     })
                     .when("/clientes", {
                         templateUrl: 'clientes.html'
@@ -34,7 +38,7 @@ var app;
                         templateUrl: '../cliente/view/catalogo.html'
                     })
                     .otherwise({
-                        redirectTo:"/home"
+                        redirectTo:"/pedidosClientes"
                     });
                     
             
@@ -76,7 +80,25 @@ var app;
 
     }]);
 
-   
+   app.filter('cut',function(){
+        return function (value, wordwise, max, tail) {
+            if (!value) return '';
+
+            max = parseInt(max, 10);
+            if (!max) return value;
+            if (value.length <= max) return value;
+
+            value = value.substr(0, max);
+            if (wordwise) {
+                var lastspace = value.lastIndexOf(' ');
+                if (lastspace != -1) {
+                    value = value.substr(0, lastspace);
+                }
+            }
+
+            return value + (tail || ' …');
+        };
+   });
 
 })();
 

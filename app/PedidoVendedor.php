@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PedidoVendedor extends Model
 {
-    protected $table = "pedidosVendedores";
+    protected $table = "pedidosvendedores";
     
     public $timestamps = false;
 }

@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Pedido;
 use Carbon\Carbon;
 use App\Detalle;
+use App\Producto;
+use DB;
 
 class PedidoController extends Controller
 {
@@ -19,9 +21,49 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        //
+         $result = DB::select(DB::raw(
+                        "Select p.*,p.estado as estadoPedido, c.*, p.id as idPedido  from pedidos as p
+                         INNER JOIN clientes as c ON p.idCliente = c.cedula"
+
+                    ));
+          return $result;
+    }
+     public function loadPedidos($estado)
+    {
+         $result = DB::select(DB::raw(
+                        "Select p.*,p.estado as estadoPedido, c.*, p.id as idPedido  from pedidos as p
+                         INNER JOIN clientes as c ON p.idCliente = c.cedula WHERE p.estado = '$estado'"
+
+                    ));
+          return $result;
+    }
+    public function detallePedido($idPedido){
+         $result = DB::select(DB::raw(
+                        "Select  p.id, dp.*, productos.* , marcas.nombre as nombreMarca, marcas.id, marcas.ruta as imagenMarca from pedidos as p 
+                         INNER JOIN detallesPedidos as dp ON  dp.idPedido = p.id
+                         INNER JOIN productos ON  productos.id =  dp.idProducto 
+                         INNER JOIN marcas ON marcas.id = productos.marca
+                            WHERE dp.idPedido = '$idPedido'"
+                    
+
+                    ));
+          return $result;
     }
 
+    public function alterEstado($idPedido,$estado){
+         try {
+ 
+            $pedido = Pedido::find($idPedido);
+            $pedido->estado = $estado;
+            $pedido->save();
+
+        return JsonResponse::create(array('message' => "Estado Actualizado Correctamente",200));
+            
+        } catch (Exception $exc) {
+            return JsonResponse::create(array('message' => "No se pudo cambiar el estado del pedido", "exception"=>$exc->getMessage(), 401));
+        }
+  
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -63,8 +105,9 @@ class PedidoController extends Controller
             $cantidad = $producto->visitas;
             $producto->visitas = $cantidad + 1;
             $producto->save();
+              
         }
-          return JsonResponse::create(array('message' => "Pedido Enviado correctamente", "request" => $marca), 200);
+          return JsonResponse::create(array('message' => "Pedido Enviado correctamente"), 200);
             
         } catch (Exception $exc) {
             return JsonResponse::create(array('message' => "No se pudo enviar el pedido", "exception"=>$exc->getMessage(), "request" =>json_encode($data)), 401);

@@ -138,4 +138,19 @@ height:30px;
 
 .descripcion{
     word-wrap: break-word;
+    font-size: 12px;
+}
+
+.head{
+ 
+  position: relative;
+  height: 390px;
+  overflow: hidden;
+  background-color: #1e88e5;
+}
+
+#buscar{
+background-position: left;
+background-image: url('user.png');
+background-repeat: no-repeat;
 }

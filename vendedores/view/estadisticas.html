@@ -1,9 +1,10 @@
-<div ng-controller="estadisticasVendedor">
-	<div class="container">
+<div ng-controller="estadisticasVendedor" class="contenedor">
+    <div class="white z-depth-1">
+	
 		<div class="col s12">
 	        <ul class="tabs">
 	            <li class="tab col s3">
-	            	<a class="active teal-text teal-darken-4" href="#tabGanancia">Ganancia Mes</a>
+	            	<a class="active teal-text teal-darken-4" href="#tabGanancia">Balance del Mes</a>
 	            </li> 
 	            <li class="tab col s3">
 	            	<a class="teal-text teal-darken-4" href="#tabHistorico">Pagos Históricos</a>
@@ -12,16 +13,19 @@
 	    </div>
 
 	    <div id="tabGanancia">
-	    	<div class="row">
-	    		<h3>Ganancia Total : {{GananciaMes|currency}}</h3>
+	    	<div class="row" style="padding: 20px;">
+	    		<h2>Ganancia Total : {{GananciaMes |currency }}</h2>
 	    	</div>
-	    	<table>
+                   <div class="row">
+                     <div class="col s12" style="padding-bottom: 20px;">
+	    	 <table class="striped bordered">
 	    		<thead>
 	    			<th>Id</th>
 	    			<th>Fecha</th>
-	    			<th>Valor</th>
-	    			<th>Estado</th>
-	    			<th>Ganancia</th>
+	    			<th>Valor del pedido</th>
+	    			<th>Ganancia Por pedido</th>
+                                <th>Estado del Pedido</th>
+                                <th>Pago de ganancia</th>
 	    			<th>Ver</th>
 	    		</thead>
 	    		<tbody>
@@ -36,20 +40,135 @@
 	    					{{pedido.valor|currency}}
 	    				</td>
 	    				<td>
-	    					{{pedido.estado}}
+                                            <span class="blue darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{pedido.ganancia |currency}}</span>
+	    				</td>
+                                        <td>
+                                            <span class="lime darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{pedido.estado}}</span>
+	    				</td>
+                                        <td>
+                                            <span class="red darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{pedido.estadoPago}}</span>
 	    				</td>
 	    				<td>
-	    					{{pedido.ganancia|currency}}
-	    				</td>
-	    				<td>
-	    					<a href="javascritp:;" ng-click="detalles(pedido.id)">Detalles</a>
+                                            <a href="javascritp:;" ng-click="detallePedido(pedido.id)"><i class="material-icons">visibility</i></a>
 	    				</td>
 	    			</tr>
 	    		</tbody>
 	    	</table>
+                     </div>
+                   </div>
+	    </div>
+         <div id="tabHistorico">
+	    	<div class="row" style="padding: 20px;">
+                    <div class="col s6"><h2>Historial De Pagos</h2></div>
+                    <div class="col s6"><h2>Ganancia Total Historica : {{GananciaHistorica |currency }}</h2></div>
+	    	</div>
+                   <div class="row">
+                     <div class="col s12" style="padding-bottom: 20px;">
+	    	 <table class="striped bordered">
+	    		<thead>
+	    			<th>Id</th>
+	    			<th>Fecha</th>
+	    			<th>Valor del pedido</th>
+	    			<th>Ganancia Por pedido</th>
+                                <th>Estado del Pedido</th>
+                                <th>Pago de ganancia</th>
+	    			<th>Ver</th>
+	    		</thead>
+	    		<tbody>
+	    			<tr ng-repeat="pedido in PedidosHistorico">
+	    				<td>
+	    					{{pedido.id}}
+	    				</td>
+	    				<td>
+	    					{{pedido.fecha}}
+	    				</td>
+	    				<td>
+	    					{{pedido.valor|currency}}
+	    				</td>
+	    				<td>
+                                            <span class="blue darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{pedido.ganancia*1000 |currency}}</span>
+	    				</td>
+                                        <td>
+                                            <span class="orange darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{pedido.estado}}</span>
+	    				</td>
+                                        <td>
+                                            <span class="green darken-1" style="padding:5px;color:#FFFFFF;border-radius:3px;">{{pedido.estadoPago}}</span>
+	    				</td>
+	    				<td>
+                                            <a href="javascritp:;" ng-click="detallePedido(pedido.id)"><i class="material-icons">visibility</i></a>
+	    				</td>
+	    			</tr>
+	    		</tbody>
+	    	</table>
+                     </div>
+                   </div>
 	    </div>
 	</div>
+    <div id="modalDetalles" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
+            <div class="contendor">
+                <div class="modal-content">
+                    <h2>{{title}}</h2>
+                  <div class="row">
+                       
+                        <div class="col s12">
+                            <h2 style="font-size: 18px;"><i class="material-icons left">shopping_cart</i>Informacion del pedido</h2>
+                            <hr>
+                    <div>
+     
+                     <div class="row">
+                <table>
+                    <thead>
+                       
+                        <th>imagen</th>
+                        <th>Producto</th>
+                         
+                         <th width="50px">Marca</th>
+                        <th style=" text-align: center" width="50px">Cantidad</th>
+                        <th style="width:60px; text-align: right">Precio</th>
+                        
+                        <th style="width:60px; text-align: right">Subtotal</th>
+                        <th style="width:60px; text-align: right">Porcentaje de Ganancia</th>
+                        <th style="width:60px; text-align: right">Ganancia</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="p in PedidosDetalle">
+                            <td width="50px"><img src="{{p.ruta}}" width="50px;"></td>
+                            <td width="100px;">{{p.nombre}} {{p.nombreMarca}}</td>
+                         
+                            <td><img src="{{p.imagenMarca}}" width="50px;" title="{{p.nombreMarca}}"></td>
+                            <td style="width: 20px;text-align:center">
+                                {{p.cantidad}}
+                            </td>
+                             <td style="width:60px; text-align: right">{{p.precio| currency}}</td>
+                            
+                            <td style="width:60px; text-align: right" align="right"><span style="font-weight:600">{{p.precio * p.cantidad | currency}}</span></td>
+                            <td style="width:60px; text-align: right">{{p.porcentajeVendedor}}%</td>
+                            <td style="width:60px; text-align: right">{{p.ganancia | currency}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="row">
+                    <hr>
+                    <div class="col s12">
+                      <h2 class="right">TOTAL:<span id="grantotal_resumen" style="font-weight: 900">{{GananciaPedido |currency}}</span></h2>
+                    </div>
+                    </br>
+                   
+                </div>
+            </div>
+                </div>
+                        </div>
+                    </div>
+                      </div>
+                    <div class="modal-footer">
+                        <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red">Salir</a>
+                    </div>
+              
+            </div>
+        </div>
 </div>
+
 <script>
 	$(document).ready(function  () {
 		$('ul.tabs').tabs();

@@ -27,7 +27,8 @@
                                 <th>Subcategoria</th>
                                 <th>Marca</th>
                                 <th>Precio</th>
-                                <th>Precio de venta</th>
+                                <th>% Vendedor</th>
+                                <th>% Descuento</th>
                                 <th>ver</th>
                             </tr>
                             </thead>
@@ -39,8 +40,9 @@
                                     <td>{{item.nombreCategoria}}</td>
                                     <td>{{item.nombreSubcategoria}}</td>
                                     <td>{{item.nombreMarca}}</td>
-                                    <td>{{item.precio}}</td>
-                                    <td>{{item.precioVenta}}</td>
+                                    <td>{{item.precio | currency}}</td>
+                                    <td>{{item.porcentajeVendedor}} %</td>
+                                    <td>{{item.porcentajeDescuento}} %</td>
                                     <td><a data-ng-click="get(item)" href="javascript:;"><i class="material-icons left" >visibility</i></a></td>
                                 </tr>
                             </tbody>
@@ -99,17 +101,21 @@
                                 </div>
                             </div>
                           <div class="row">
-                                <div class="input-field col s6">
+                                <div class="input-field col s4">
                                 <i class="material-icons prefix">money_off</i>
                                 <input ng-model="Producto.precio" id="precio" type="number" class="validate">
                                 <label class="{{active}}" for="descripcion">Precio Unitario</label>
                             </div>
-                             <div class="input-field col s6">                         
-                                            <i class="material-icons prefix">attach_money</i> 
-                                             <input id="precioVenta" ng-model="Producto.precioVenta" type="number" class="validate">
-                                             <label class="{{active}}" for="precioVenta">Precio de Venta Unitario</label>                          
+                             <div class="input-field col s4">                         
+                                            <i class="material-icons prefix">%</i> 
+                                             <input id="precioVenta" ng-model="Producto.porcentajeVendedor" type="number" class="validate">
+                                             <label class="{{active}}" for="precioVenta">% para vendedor</label>                          
                             </div>  
-                                
+                               <div class="input-field col s4">                         
+                                            <i class="material-icons prefix">%</i> 
+                                             <input id="precioVenta" ng-model="Producto.porcentajeDescuento" type="number" class="validate">
+                                             <label class="{{active}}" for="precioVenta">% para descuento</label>                          
+                            </div>   
                             </div>
                             <div class="row">
                                 <div class="input-field col s12">

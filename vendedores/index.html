@@ -20,7 +20,7 @@
      
              <script>
                     if (sessionStorage.getItem('session')) {
-                         
+                         console.log(sessionStorage.getItem('session'))
                     }else{
                         window.location.href = "../cliente/index.html";
                     }
@@ -36,6 +36,7 @@
                         </a>  
                         <a href="#/homeUsuario" class="brand-logo" style="margin-left:5px;margin-top: 6px;"><img src="../public/images/logo.png" width="160px;"></a>
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
+                                  <li ng-controller="catalogoController"><a href="javascript:;" ng-click="carritoVendedor()"><i class="material-icons left">shopping_cart</i>Carrito de Compras</a></li>
                             <li><a href="javascript:;" class="waves-effect waves-light"><i class="material-icons left" style="font-size:18px;">today</i>{{hoy}}</a></li>
                             <li><a href="javascript:;" onclick="cerrarSesion()" class="waves-effect waves-light"><i class="material-icons left" style="font-size:18px;">input</i>Salir</a></li>
                         </ul>
@@ -45,8 +46,14 @@
             <div>
                 <ul id="slide-out" class="side-nav fixed" style="width: 220px;margin-top: 60px;box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);">
                     <li class="no-padding">
-                        <ul>
-                            <li class="user"></li> 
+                         <ul>
+                            <li class="user">
+                                <div style="text-align: left;padding-top: 20px;padding-left: 10px;">
+                                   <img alt="image" class="circle" style="border:2px solid #FFFFFF;" src="../public/images/profile-vendedor.jpg" width="50px;">                            
+                                   <div style="color:#FFFFFF;font-weight:900;margin-top:-15px;">{{nombres}}{{apellidos}}</div>                    
+                                   <div style="color:#FFFFFF;margin-top:-25px;font-size:12px;">Vendedor por catalogo</div>
+                                </div>
+                            </li> 
                         </ul>
                         
                     <li>
@@ -61,6 +68,47 @@
                                      
                 </ul>
             </div>
+        <div class="modal" id="modalCarrito" ng-controller="catalogoController"  style="width: 90%;min-height:85%;">
+        <div class="modal-content">
+            <h2><i class="material-icons">shopping_cart</i>Carrito de compras</h2>
+            <div class="row">
+                <table>
+                    <thead>
+                        <th>Id</th>
+                        <th>imagen</th>
+                        <th>Producto</th>
+                        <th style=" text-align: center">Cantidad</th>
+                        <th style="width:60px; text-align: right">Precio</th>
+                        <th style="width:60px; text-align: right">Subtotal</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="pedido in PedidosVendedor">
+                            <td style="width:60px;">{{pedido.idProducto}}</td>
+                            <td width="100px"><img src="{{pedido.imagen}}" width="60px;"></td>
+                            <td width="100px;">{{pedido.nombre}} {{pedido.marca}}</td>
+                            <td style="width: 20px;text-align:center">
+                         <input type="number" value="{{pedido.cantidad}}" style="text-align:center;"
+                                ng-keyup="cambiarCantidadVendedor($index)" id="pedido{{$index}}" >
+                            </td>
+                            <td style="width:60px; text-align: right">{{pedido.precio | currency}}</td>
+                            <td style="width:60px; text-align: right" align="right"><span style="font-weight:600">{{pedido.subtotal|currency}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="row">
+                    <hr>
+                    <div class="col s12">
+                      <h2 class="right">TOTAL:<span id="grantotal" style="font-weight: 900"></span></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:;" class="modal-close waves-effect waves-light btn red" style="margin-left:10px;">Salir</a>
+            <a href="javascript:;" ng-click="redireccionarVendedor()" class="waves-effect waves-light btn orange" > <i class="material-icons left">attach_money</i>Comprar</a>
+        </div>
+    </div>
             <div ng-view id="container" style="padding-left:220px">
 
             </div>
@@ -77,10 +125,12 @@
         <script src="../public/scripts/controllers/productosController.js" type="text/javascript"></script>
         <script src="../public/scripts/controllers/marcasController.js" type="text/javascript"></script>
         <script src="../public/scripts/controllers/categoriasController.js" type="text/javascript"></script>
-        <script src="../public/scripts/controllers/subcategoriasController.js" type="text/javascript">
-        </script>
+        <script src="../public/scripts/controllers/subcategoriasController.js" type="text/javascript"></script>
         <script src="../public/scripts/controllers/serviciosController.js" type="text/javascript"></script>
-           
+       <script src="../public/scripts/controllers/catalogoController.js" type="text/javascript"></script>    
+        <script src="../public/scripts/controllers/pedidosController.js" type="text/javascript"></script>
+        <script src="../public/scripts/controllers/estadisticasVendedor.js" type="text/javascript"></script>
+        
         <!-- servicios-->
         <script src="../public/scripts/services/vendedoresService.js" type="text/javascript"></script>
         <script src="../public/scripts/services/marcasService.js" type="text/javascript"></script>
@@ -88,20 +138,17 @@
         <script src="../public/scripts/services/subcategoriasService.js" type="text/javascript"></script>
         <script src="../public/scripts/services/productosService.js" type="text/javascript"></script>
          <script src="../public/scripts/services/serviciosService.js" type="text/javascript"></script>
-         <script src="../public/scripts/controllers/productosController.js" type="text/javascript"></script>
-        <script src="../public/scripts/controllers/categoriasController.js" type="text/javascript"></script>
-        <script src="../public/scripts/controllers/catalogoController.js" type="text/javascript"></script>
-        <script src="../public/scripts/controllers/clientesController.js" type="text/javascript"></script>
-        <script src="../public/scripts/controllers/pedidosController.js" type="text/javascript"></script>
-        <script src="../public/scripts/controllers/estadisticasVendedor.js" type="text/javascript"></script>
+           <script src="../public/scripts/services/pedidosService.js" type="text/javascript"></script>
+         
+       
+      
+      
 
            
-        <!-- servicios-->
-        <script src="../public/scripts/services/categoriasService.js" type="text/javascript"></script>
-        <script src="../public/scripts/services/productosService.js" type="text/javascript"></script>
-        <script src="../public/scripts/services/subcategoriasService.js" type="text/javascript"></script>
-        <script src="../public/scripts/services/pedidosService.js" type="text/javascript"></script>
-        <script src="../public/scripts/services/clientesService.js" type="text/javascript"></script>
+      
+      
+   
+        
         <script>
 
 

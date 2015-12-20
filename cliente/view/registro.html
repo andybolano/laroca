@@ -1,9 +1,12 @@
 <div ng-controller="clientesController">
 
-	<div class="container white z-depth-1" style="padding: 20px;">
+	<div class="container white z-depth-1" style="padding: 20px;margin-top: 20px;margin-bottom: 20px;">
+            <div class="row">     
+            <div class="col s6">
+                <h2><i class="material-icons left">account_circle</i>Registro de cliente</h2>
 		<form action="" name="frmClientes">	 		
 	    	<div class="row">
-	    		<div class="col s6">
+	    		<div class="col s11">
 	    			<div class="input-field">
 						<input id="cedula" name="cedula" type="text" ng-model="Cliente.cedula" required
 						ng-class="{invalid:!frmClientes.$pristine && frmClientes.cedula.$error.required || frmClientes.cedula.$error.pattern}" ng-pattern="/^[0-9]*$/" ng-minlength="6" ng-blur="buscar()">
@@ -15,7 +18,7 @@
 	    		</div>
 	    	</div>
 	    	<div class="row">
-	    		<div class="col s6">
+	    		<div class="col s11">
 	    			<div class="input-field">
 						<input id="nombres" type="text" name="nombres"  ng-model="Cliente.nombres" required 
 						ng-class="{invalid:!frmClientes.$pristine && frmClientes.nombres.$error.required}">
@@ -23,7 +26,9 @@
 						<small><span class="red-text" ng-show="!frmClientes.$pristine && frmClientes.nombres.$error.required">Nombres Es Obligatorio.</span></small>
 					</div>
 	    		</div>
-	    		<div class="col s6">
+                </div>
+                <div class="row">
+	    		<div class="col s11">
 	    			<div class="input-field">
 						<input id="apellido" name="apellido" type="text" ng-model="Cliente.apellidos" required ng-class="{invalid:!frmClientes.$pristine && frmClientes.apellido.$error.required}">
 						<label for="apellido" class="{{active}}">Apellidos</label>
@@ -32,14 +37,16 @@
 	    		</div>
 	    	</div> 
 	    	<div class="row">
-	    		<div class="col s6">
+	    		<div class="col s11">
 	    			<div class="input-field">
 						<input id="direccion" name="direccion" type="text" ng-model="Cliente.direccion" required ng-class="{invalid:!frmClientes.$pristine && frmClientes.direccion.$error.required}">
 						<label for="direccion" class="{{active}}">Dirección</label>
 						<small><span class="red-text" ng-show="!frmClientes.$pristine && frmClientes.direccion.$error.required">Dirección Es Obligatorio.</span></small>
 					</div>
 	    		</div>
-	    		<div class="col s6">
+                   </div>
+                    	<div class="row">
+	    		<div class="col s11">
 	    			<div class="input-field">
 						<input id="telefono" type="text" name="telefono" ng-model="Cliente.telefono" required ng-class="{invalid:!frmClientes.$pristine && frmClientes.telefono.$error.required || frmClientes.telefono.$error.pattern}" ng-pattern="/^[0-9]*$/" ng-minlength="7">
 						<label for="telefono" class="{{active}}">Teléfono</label>
@@ -50,7 +57,7 @@
 	    		</div>	    		
 	    	</div>
 	    	<div class="row">
-	    		<div class="col s6">
+	    		<div class="col s11">
 	    			<div class="input-field">
 						<input id="correo" type="email" name="correo" ng-model="Cliente.correo" required ng-class="{invalid:!frmClientes.$pristine && frmClientes.correo.$error.required || frmClientes.correo.$error.email }">
 						<label for="correo" class="{{active}}">Correo</label>
@@ -58,7 +65,9 @@
 						<small><span class="red-text" ng-show="!frmClientes.correo.$pristine && frmClientes.correo.$error.email">Correo No Valido</span></small>
 					</div>
 	    		</div>
-	    		<div class="col s6">
+                </div>
+                    <div class="row">
+	    		<div class="col s11">
 	    			<br>
 	    			<input class="with-gap" name="formaPedido" type="radio" id="domicilio" value="domicilio" />
       				<label for="domicilio">Despacho Domicilio</label>
@@ -70,4 +79,55 @@
 	    	
 		</form>	
 	</div>
-</div>
+                <div class="col s6" id="catalogoController" ng-controller="catalogoController">
+                     <h2><i class="material-icons left">shopping_cart</i>Listado de Compra</h2>
+                     <div class="row">
+                <table>
+                    <thead>
+                       
+                        <th>imagen</th>
+                        <th>Producto</th>
+                        <th style=" text-align: center">Cantidad</th>
+                        <th style="width:60px; text-align: right">Precio</th>
+                        <th style="width:60px; text-align: right">Subtotal</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="pedido in Pedidos">
+                            <td width="100px"><img src="{{pedido.imagen}}" width="100px;"></td>
+                            <td width="100px;">{{pedido.nombre}} {{pedido.marca}}</td>
+                            <td style="width: 20px;text-align:center">
+                                {{pedido.cantidad}}
+                            </td>
+                            <td style="width:60px; text-align: right">{{pedido.precioVenta | currency}}</td>
+                            <td style="width:60px; text-align: right" align="right"><span style="font-weight:600">{{pedido.subtotal|currency}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="row">
+                    <hr>
+                    <div class="col s12">
+                      <h2 class="right">TOTAL:<span id="grantotal_resumen" style="font-weight: 900"></span></h2>
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+        </div>
+    <script>
+      $(document).ready(function () {
+ grantotal();
+                 function grantotal(){
+                    
+                 var grantotal=0;
+                     var pedidos=JSON.parse(localStorage.getItem("carrito"));
+
+
+                    for(i=0; i<pedidos.length; i++){
+                        grantotal=grantotal+pedidos[i].subtotal;
+                    }
+                   document.getElementById("grantotal_resumen").innerHTML="$"+grantotal;
+               }
+         
+    });
+    </script>

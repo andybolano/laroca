@@ -1,0 +1,269 @@
+<div class="row" class="contenedor">
+    </br>   
+    <div class="col s12">
+        <ul class="tabs z-depth-1">
+            <li class="tab col s3"><a class="active" href="#nuevasolicitudes">NUEVAS SOLICITUDES</a></li>
+            <li class="tab col s3"><a  href="#confirmados">CONFIRMADOS</a></li>
+            <li class="tab col s3 "><a href="#despachados">DESPACHADOS</a></li>
+        </ul>
+    </div> 
+
+    <div id="pedidosController" ng-controller="pedidosVendedoresController">   
+
+        <div class="col s12 ">
+            <div class="row white z-depth-1">
+                <div class="contenedor">
+
+                    <div class="row">
+                        <div class="col s8">
+                            <h2><i class="material-icons left">people</i><i class="material-icons left">share</i>Gestion de pedidos Vendedores</h2>  
+                        </div>
+                        <div class="col s4">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">search</i>
+                                <input id="icon_prefix" type="text" class="validate" ng-model= "filtro">
+                                <label for="icon_prefix">Filtro</label>
+                            </div>
+                        </div>
+                    </div>   
+                    <div id="nuevasolicitudes" class="row" > 
+                        <div class="col s12">
+                            <table class="striped bordered">
+                                <thead> 
+
+                                <th>Cédula</th>
+                                <th>Nombres</th>
+                                <th>Teléfono</th>
+                                <th>Dirección</th>
+                                <th>Valor</th>
+                                <th>Ganancia</th>
+                                <th>Estado Pedido</th>
+                                 <th>Pago Vendedor</th>
+                                <th>Acciones</th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="vendedor in PedidosVendedorEspera| filter : filtro">
+                                        <td>{{vendedor.cedula}}</td>
+                                        <td>{{vendedor.nombres}}
+                                            {{vendedor.apellidos}}</td>                                  
+                                        <td>{{vendedor.telefono}}</td>
+                                        <td>{{vendedor.direccion}}</td>
+                                       
+                                        <td>{{vendedor.valor| currency}}</td>
+                                         <td>{{vendedor.ganancia | currency}}</td>
+                                        
+                                        <td><span class="lime darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{vendedor.estadoPedido}}</span></td>
+                                             <td><span class="red darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{vendedor.estadoPago}}</span></td>
+                                        <td style="text-align: center;">
+                                            <a href="javascript:;" ng-click="verpedido(vendedor)"><i class="material-icons">visibility</i></a>	
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!---------------------------------------------------------------->
+                    <div id="confirmados"  class="row" >
+                        <div class="col s12">
+                            <table class="striped bordered">
+                                  <thead> 
+
+                                <th>Cédula</th>
+                                <th>Nombres</th>
+                                <th>Teléfono</th>
+                                <th>Dirección</th>
+                                <th>Valor</th>
+                                <th>Ganancia</th>
+                                 <th>Estado Pedido</th>
+                                 <th>Pago Vendedor</th>
+                                <th>Acciones</th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="vendedor in PedidosVendedorConfirmado| filter : filtro">
+                                         <td>{{vendedor.cedula}}</td>
+                                        <td>{{vendedor.nombres}}
+                                            {{vendedor.apellidos}}</td>                                  
+                                        <td>{{vendedor.telefono}}</td>
+                                        <td>{{vendedor.direccion}}</td>
+                                       
+                                        <td>{{vendedor.valor| currency}}</td>
+                                         <td>{{vendedor.ganancia | currency}}</td>
+                                        <td><span class="lime darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{vendedor.estadoPedido}}</span></td>
+                                                   <td><span class="red darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{vendedor.estadoPago}}</span></td>
+                                        <td style="text-align: center;">
+                                            <a href="javascript:;" ng-click="verpedido(vendedor)"><i class="material-icons">visibility</i></a>	
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-------------------------------------------------------------------->
+                    <div id="despachados" class="row" >
+                        <div class="col s12">
+                                    <table class="striped bordered">
+                                 <thead> 
+
+                                <th>Cédula</th>
+                                <th>Nombres</th>
+                                <th>Teléfono</th>
+                                <th>Dirección</th>
+                                <th>Valor</th>
+                                <th>Ganancia</th>
+                                 <th>Estado Pedido</th>
+                                 <th>Pago Vendedor</th>
+                                <th>Acciones</th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="vendedor in PedidosVendedorDespachado| filter : filtro">
+                                           <td>{{vendedor.cedula}}</td>
+                                        <td>{{vendedor.nombres}}
+                                            {{vendedor.apellidos}}</td>                                  
+                                        <td>{{vendedor.telefono}}</td>
+                                        <td>{{vendedor.direccion}}</td>
+                                       
+                                        <td>{{vendedor.valor| currency}}</td>
+                                         <td>{{vendedor.ganancia * 1000 | currency}}</td>
+                                        <td><span class="lime darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{vendedor.estadoPedido}}</span></td>
+       <td><span class="red darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{vendedor.estadoPago}}</span></td>
+                                        <td style="text-align: center;">
+                                            <a href="javascript:;" ng-click="verpedido(vendedor)"><i class="material-icons">visibility</i></a>	
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!------------------------------------------------------------------------->
+                </div>
+            </div>
+        </div>  
+        <div id="modalPedido" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
+            <div class="contendor">
+                <div class="modal-content">
+                    <h2>{{title}}</h2>
+                  <div class="row">
+                        <div class="col s4">
+                            <h2 style="font-size: 18px;"><i class="material-icons left">account_circle</i>Informacion del vendedor</h2>
+                            <hr>
+                            <table>
+                                <tr>
+                                    <td width="30%"><span style="font-weight:900">Cedula:</span></td>
+                                    <td style="text-align: left">{{DetallePedido.cedula}} </td>
+                                </tr>
+                                <tr>
+                                    <td width="30%"><span style="font-weight:900">Nombres:</span></td>
+                                    <td style="text-align: left">{{DetallePedido.nombres}} {{DetallePedido.apellidos}}</td>
+                                </tr>
+                                <tr>
+                                    <td><span style="font-weight:900">Telefono:</span></td>
+                                    <td style="text-align: left">{{DetallePedido.telefono}}</td>
+                                </tr>
+                                <tr>
+                                    <td><span style="font-weight:900">direccion:</span></td>
+                                    <td style="text-align: left">{{DetallePedido.direccion}}</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td><span style="font-weight:900">Fecha de Pedido:</span></td>
+                                    <td style="text-align: left">{{DetallePedido.fecha}}</td>
+                                </tr>
+                                 <tr>
+                                    <td><span style="font-weight:900">Valor del pedido:</span></td>
+                                    <td style="text-align: left"><span class="orange darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{DetallePedido.valor  | currency}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span style="font-weight:900">Ganancia Vendedor:</span></td>
+                                    <td style="text-align: left"><span class="blue darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{DetallePedido.ganancia   | currency }}</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span style="font-weight:900">Estado Pedido:</span></td>
+                                    <td style="text-align: left"><span class="lime darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{DetallePedido.estadoPedido}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span style="font-weight:900">Pago vendedor:</span></td>
+                                    <td style="text-align: left"><span class="red darken-1 z-depth-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{DetallePedido.estadoPago}}</span></td>
+                                </tr>
+                               <tr>
+                                    <td><span style="font-weight:900">Domicilio:</span></td>
+                                    <td style="text-align: left">
+                                        <span ng-if="DetallePedido.domicilio =='SI' " class="red darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">SI</span>
+                                        <span ng-if="DetallePedido.domicilio =='NO' " class="red darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">RECOGER EN TIENDA</span>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="col s12" style="margin-top: 40px;">
+                                        
+                                       <a href="javascript:;" class="modal-action waves-effect waves-light btn orange darken-1"  ng-show="editMode"  ng-click="cambiarEstadoPedidoVendedor(DetallePedido.idPedido,DetallePedido.estadoPedido)">{{boton}}</a>
+                                       <a href="javascript:;" class="modal-action waves-effect waves-light btn orange darken-1"  ng-show="liquidarMode"  ng-click="cambiarEstadoPagoPedido(DetallePedido.idPedido)">LIQUIDAR PAGO A VENDEDOR</a>
+                            </div>
+                        </div>
+                        <div class="col s8">
+                            <h2 style="font-size: 18px;"><i class="material-icons left">shopping_cart</i>Informacion del pedido</h2>
+                            <hr>
+                    <div>
+     
+                     <div class="row">
+                <table>
+                    <thead>
+                       
+                        <th>imagen</th>
+                        <th>Producto</th>
+                         
+                         <th width="50px">Marca</th>
+                        <th style=" text-align: center" width="50px">Cantidad</th>
+                        <th style="width:60px; text-align: right">Precio</th>
+                        
+                        <th style="width:60px; text-align: right">Subtotal</th>
+                        <th style="width:60px; text-align: right">Porcentaje de Ganancia</th>
+                        <th style="width:60px; text-align: right">Ganancia</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="pedido in Pedidos">
+                            <td width="50px"><img src="{{pedido.ruta}}" width="50px;"></td>
+                            <td width="100px;">{{pedido.nombre}} {{pedido.nombreMarca}}</td>
+                         
+                            <td><img src="{{pedido.imagenMarca}}" width="50px;" title="{{pedido.nombreMarca}}"></td>
+                            <td style="width: 20px;text-align:center">
+                                {{pedido.cantidad}}
+                            </td>
+                             <td style="width:60px; text-align: right">{{pedido.precio| currency}}</td>
+                            <td style="width:60px; text-align: right" align="right"><span style="font-weight:600">{{pedido.precio * pedido.cantidad | currency}}</span></td>
+                            <td style="width:60px; text-align: right">{{pedido.porcentajeVendedor}} %</td>
+                            <td style="width:60px; text-align: right">{{pedido.ganancia | currency}}</td>
+                  
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="row">
+                    <hr>
+                    <div class="col s12">
+                      <h2 class="right">TOTAL:<span id="grantotal_resumen" style="font-weight: 900">{{DetallePedido.valor | currency}}</span></h2>
+                    </div>
+                    </br>
+                   
+                </div>
+            </div>
+                </div>
+                        </div>
+                    </div>
+                      </div>
+                    <div class="modal-footer">
+                        <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red">Salir</a>
+                    </div>
+              
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $('ul.tabs').tabs();
+
+        /* var scope = angular.element($('#pedidosController')).scope();
+         scope.loadPedidos();*/
+
+    });
+</script>
+

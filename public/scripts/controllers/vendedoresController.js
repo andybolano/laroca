@@ -1,5 +1,6 @@
-app.controller('vendedoresController', function($scope,vendedoresService){
+app.controller('vendedoresController', function($scope,$rootScope,vendedoresService, pedidosService){
 	$scope.Vendedores = [];
+        $rootScope.VendedorPedidos= {};
 	$scope.Vendedor = {};
     $scope.titulo;
     $scope.active;
@@ -10,12 +11,53 @@ app.controller('vendedoresController', function($scope,vendedoresService){
 		var promiseGet = vendedoresService.getAll(); 
         promiseGet.then(function (pl) {
             $scope.Vendedores = pl.data;
-            console.log(JSON.stringify($scope.Vendedores));
+           
         },
         function (errorPl) {
         	console.log('Error Al Cargar Datos', errorPl);
         });
 	}
+        
+          $scope.loadPedidos = function(idCliente){
+          var promiseGet = pedidosService.getPedidosCliente(idCliente); 
+        promiseGet.then(function (pl) {
+                $rootScope.VendedorPedidos = pl.data; 
+               console.log($rootScope.VendedorPedidos)
+              
+        },
+        function (errorPl) {
+            console.log('Error Al Cargar Datos', errorPl);
+        });
+    };
+    
+     $scope.verpedidoVendedor = function(vendedor) {
+        $scope.DetallePedido = "";
+        $scope.DetallePedido = vendedor;
+        console.log(vendedor)
+        $scope.title = "Gestion de Pedidos";
+        if(vendedor.estadoPedido == "Espera"){
+             $scope.editMode = true;
+             
+        $scope.boton = "Confirmar Pedido";
+        }else if(vendedor.estadoPedido == "Confirmado"){
+            $scope.editMode = true;
+           
+            $scope.boton = "Despachar Pedido";
+        }else{
+              $scope.editMode = false;
+             
+        }
+        $scope.active = "";
+        $('#modalPedido').openModal();
+          var promiseGet = pedidosService.getPedidosDetallesVendedor(vendedor.id); 
+        promiseGet.then(function (pl) {
+          $scope.Pedidos =   pl.data;
+       
+        },
+        function (errorPl) {
+            console.log('Error Al Cargar Datos', errorPl);
+        });
+    }; 
 
     $scope.nuevo = function  () {
         $scope.editMode = false;
@@ -95,6 +137,10 @@ app.controller('vendedoresController', function($scope,vendedoresService){
             console.log('Error Al Cargar Datos', errorPl);
         });
     }
+    
+    
+    
+      
 
     
 

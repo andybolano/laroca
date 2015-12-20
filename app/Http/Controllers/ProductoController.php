@@ -23,6 +23,7 @@ class ProductoController extends Controller
     
     public function getAll(){
         return Producto::select('id', 'nombre')
+  
                 ->orderBy('nombre', 'asc')
                 ->get();
         
@@ -93,7 +94,8 @@ class ProductoController extends Controller
             $producto->categoria = $data["categoria"];
             $producto->subcategoria = $data["subcategoria"];
             $producto->precio = $data["precio"];
-            $producto->precioVenta = $data["precioVenta"];
+             $producto->porcentajeVendedor = $data["porcentajeVendedor"];
+            $producto->porcentajeDescuento = $data["porcentajeDescuento"];
             $producto->presentacion = $data["presentacion"];
             $producto->descripcion = $data["descripcion"];
             $producto->visitas = 0;
@@ -136,7 +138,8 @@ class ProductoController extends Controller
             $producto->categoria = $data["categoria"];
             $producto->subcategoria = $data["subcategoria"];
             $producto->precio = $data["precio"];
-            $producto->precioVenta = $data["precioVenta"];
+            $producto->porcentajeVendedor = $data["porcentajeVendedor"];
+            $producto->porcentajeDescuento = $data["porcentajeDescuento"];
             $producto->presentacion = $data["presentacion"];
             $producto->descripcion = $data["descripcion"];
             
@@ -173,8 +176,8 @@ class ProductoController extends Controller
     {
         
           $result = DB::select(DB::raw(
-                        "Select p.*, m.id as idMarca, m.nombre as nombreMarca from productos as p, marcas as m
-                        WHERE  p.marca = m.id AND p.subcategoria = $idSubcategoria"
+                        "Select p.*, m.id as idMarca, m.nombre as nombreMarca, m.ruta as rutaMarca from productos as p, marcas as m
+                        WHERE  p.marca = m.id AND p.subcategoria = $idSubcategoria AND p.estado='ACTIVO'" 
                          
 
                     ));

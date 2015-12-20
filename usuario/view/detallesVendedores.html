@@ -1,0 +1,155 @@
+<div ng-controller="vendedoresController" class="contenedor"> 
+     <div class="row white">
+         <div class="col s12 z-depth-1" style="padding: 20px;">
+    <div class="fixed-action-btn" style="bottom: 45px; right: 30px;">
+			<a href="#/vendedores" class="btn-floating btn-large waves-effect waves-light red">
+				<i class="material-icons">reply</i>
+			</a>
+		</div>
+    
+     <div class="col s12 ">
+
+                    <div class="row">
+                   <div class="col s6">
+                       <h2>Historial del Vendedor</h2>
+                   </div>
+                        <div class="col s4">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">search</i>
+                                <input id="icon_prefix" type="text" class="validate" ng-model= "filtro">
+                                <label for="icon_prefix">Filtro</label>
+                            </div>
+                        </div>
+                    </div>   
+                    <div id="nuevasolicitudes" class="row" > 
+                        <div class="col s12">
+                            <table class="striped bordered">
+                                <thead> 
+                                <th>Valor del Pedido</th>
+                                <th>Ganancia</th>
+                                <th>Estado Pedido</th>
+                                 <th>Pago Vendedor</th>
+                                <th>Acciones</th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="vendedor in VendedorPedidos| filter : filtro">
+                                        <td>{{vendedor.valor| currency}}</td>
+                                         <td>{{vendedor.ganancia * 1000 | currency}}</td>
+                                        
+                                        <td><span class="lime darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{vendedor.estado}}</span></td>
+                                             <td><span class="red darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{vendedor.estadoPago}}</span></td>
+                                        <td style="text-align: center;">
+                                            <a  href="javascript:;" ng-click="verpedidoVendedor(vendedor)"><i class="material-icons">visibility</i></a>	
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+</div>
+           <div id="modalPedido" class="modal modal-fixed-footer" style="width: 90%;min-height:85%;">
+            <div class="contendor">
+                <div class="modal-content">
+                    <h2>{{title}}</h2>
+                  <div class="row">
+                        <div class="col s4">
+                            <h2 style="font-size: 18px;"><i class="material-icons left">account_circle</i>Informacion del vendedor</h2>
+                            <hr>
+                            <table>
+                               
+                                 <tr>
+                                    <td width="30%"><span style="font-weight:900">Cedula:</span></td>
+                                    <td style="text-align: left">{{DetallePedido.idVendedor}} </td>
+                                </tr>
+                               
+                                <tr>
+                                    <td><span style="font-weight:900">Fecha de Pedido:</span></td>
+                                    <td style="text-align: left">{{DetallePedido.fecha}}</td>
+                                </tr>
+                                 <tr>
+                                    <td><span style="font-weight:900">Valor del pedido:</span></td>
+                                    <td style="text-align: left"><span class="orange darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{DetallePedido.valor  | currency}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span style="font-weight:900">Ganancia Vendedor:</span></td>
+                                    <td style="text-align: left"><span class="blue darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{DetallePedido.ganancia * 1000  | currency }}</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span style="font-weight:900">Estado Pedido:</span></td>
+                                    <td style="text-align: left"><span class="lime darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{DetallePedido.estado}}</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span style="font-weight:900">Pago vendedor:</span></td>
+                                    <td style="text-align: left"><span class="red darken-1 z-depth-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{DetallePedido.estadoPago}}</span></td>
+                                </tr>
+                               <tr>
+                                    <td><span style="font-weight:900">Domicilio:</span></td>
+                                    <td style="text-align: left">
+                                        <span ng-if="DetallePedido.domicilio =='SI' " class="red darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">SI</span>
+                                        <span ng-if="DetallePedido.domicilio =='NO' " class="red darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">RECOGER EN TIENDA</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        
+                        </div>
+                        <div class="col s8">
+                            <h2 style="font-size: 18px;"><i class="material-icons left">shopping_cart</i>Informacion del pedido</h2>
+                            <hr>
+                    <div>
+     
+                     <div class="row">
+                <table>
+                    <thead>
+                       
+                        <th>imagen</th>
+                        <th>Producto</th>
+                         
+                         <th width="50px">Marca</th>
+                        <th style=" text-align: center" width="50px">Cantidad</th>
+                        <th style="width:60px; text-align: right">Precio vendedor</th>
+                        <th style="width:60px; text-align: right">Precio de venta</th>
+                        <th style="width:60px; text-align: right">Ganancia</th>
+                        <th style="width:60px; text-align: right">Subtotal</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="pedido in Pedidos">
+                            <td width="50px"><img src="{{pedido.ruta}}" width="50px;"></td>
+                            <td width="100px;">{{pedido.nombre}} {{pedido.nombreMarca}}</td>
+                         
+                            <td><img src="{{pedido.imagenMarca}}" width="50px;" title="{{pedido.nombreMarca}}"></td>
+                            <td style="width: 20px;text-align:center">
+                                {{pedido.cantidad}}
+                            </td>
+                             <td style="width:60px; text-align: right">{{pedido.precio| currency}}</td>
+                            <td style="width:60px; text-align: right">{{pedido.precioVenta| currency}}</td>
+                            <td style="width:60px; text-align: right">{{pedido.ganancia * 1000 | currency}}</td>
+                            <td style="width:60px; text-align: right" align="right"><span style="font-weight:600">{{pedido.precioVenta * pedido.cantidad | currency}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="row">
+                    <hr>
+                    <div class="col s12">
+                      <h2 class="right">TOTAL:<span id="grantotal_resumen" style="font-weight: 900">{{DetallePedido.valor | currency}}</span></h2>
+                    </div>
+                    </br>
+                   
+                </div>
+            </div>
+                </div>
+                        </div>
+                    </div>
+                      </div>
+                    <div class="modal-footer">
+                        <a href="javascript:;" class="modal-action modal-close waves-effect waves-light btn red">Salir</a>
+                    </div>
+              
+            </div>   
+             
+     </div>
+     
+     </div>
+         </div>
+
+    
