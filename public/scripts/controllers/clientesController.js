@@ -3,6 +3,7 @@ app.controller('clientesController', function($scope,clienteService,pedidosServi
 	$scope.Departamentos = [];
     $scope.Municipios = [];
     $scope.Cliente = {};
+     $scope.solicitud = {};
     $scope.Pedidos = [];
     $scope.active;
     loadClientes();
@@ -108,6 +109,23 @@ app.controller('clientesController', function($scope,clienteService,pedidosServi
     }
 
     
+  $scope.enviarSolicitud = function (){
+        var object = {
+            nombre : $scope.solicitud.nombre,
+            telefono : $scope.solicitud.celular,
+            correo : $scope.solicitud.correo
 
+        };
+        var promiseGet = clienteService.postSolicitudVendedor(object); 
+        promiseGet.then(function (pl) {
+            Materialize.toast(pl.data.message, 10000, 'rounded');
+            $scope.solicitud.nombre="";
+            $scope.solicitud.celular="";
+            $scope.solicitud.correo=""
+        },
+        function (errorPl) {
+            console.log('Error Al Cargar Datos', errorPl);
+        });
+    }
 
 })

@@ -2,6 +2,7 @@ app.controller('vendedoresController', function($scope,$rootScope,vendedoresServ
 	$scope.Vendedores = [];
         $rootScope.VendedorPedidos= {};
 	$scope.Vendedor = {};
+    
     $scope.titulo;
     $scope.active;
     $scope.editMode = false;
@@ -137,6 +138,9 @@ app.controller('vendedoresController', function($scope,$rootScope,vendedoresServ
             console.log('Error Al Cargar Datos', errorPl);
         });
     }
+    
+    
+  
     
     
     

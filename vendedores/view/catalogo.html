@@ -38,7 +38,7 @@
                            
                                 <h2>{{producto.nombre}}&nbsp;{{producto.nombreMarca}}</h2>                  
                                <div class="descripcion">
-                                   <i class="used">{{producto.descripcion}}</i>
+                                   <i class="used">{{producto.descripcion | limitTo: 30 }}{{myString.length > 30 ? '...' : ''}}</i>
                                </div>                            
                           
                

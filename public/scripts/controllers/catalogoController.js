@@ -194,7 +194,7 @@ app.controller('catalogoController', function($scope,$location,productosService,
     }   
             
     $scope.redireccionar = function  () {
-        $location.path("/cliente/registro");
+        $location.path("/clientes/registro");
         $("#modalCarrito").closeModal();  
     }
 

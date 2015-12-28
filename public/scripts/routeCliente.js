@@ -17,8 +17,17 @@ var app;
              .when("/clientes/servicios", {
                 templateUrl: '../cliente/view/servicios.html'
             })
-             .when("/cliente/registro", {
+             .when("/clientes/registro", {
                 templateUrl: '../cliente/view/registro.html'
+            })
+            .when("/clientes/quienesSomos", {
+                templateUrl: '../cliente/view/construcion.html'
+            })
+            .when("/clientes/trabajaConNosotros", {
+                templateUrl: '../cliente/view/trabajaConNosotros.html'
+            })
+            .when("/clientes/contactenos", {
+                templateUrl: '../cliente/view/construcion.html'
             })
             .otherwise({
                 redirectTo:"/home"

@@ -1,0 +1,73 @@
+
+<div ng-controller="clientesController"> 
+     <div class="crosscover-2  vendedores">
+            
+     </div>
+     <div class="container">
+         <div class="title-banner black"><span>VENDEDORES INDEPENDIENTES</br></span>VENDE A TUS CLIENTES Y GANA CON NOSOTROS</div>
+     </div>
+ 
+     
+             <div class="container ">
+                         <div class="white z-depth-1">
+                             <div class="row">
+                               <div class="col s6">
+                                   <div class="container">
+                                    <p align="justify"><span style="font-weight:900;font-size: 22px;">Te damos la oportunidad de vender a tus propios clientes y de ganar como Vendedor Independiente, ofreciendo nuestros productos de alta calidad.</span></p>  
+                                  
+                             
+                                       <p align="justify"><span style="font-weight:900;font-size: 22px;"><h4>Diligencia el formulario, muy pronto nos pondremos en contacto contigo y te contaremos todos lo detalles.</h4></p>  
+                                  
+                                       <a href="javascript:;" onclick="compartirTrabaja()" class="btn" style="background-color:#3B5998;"><i class="material-icons left">share</i>Compartir</a>
+                                  </div>
+                             </div>
+                                 <div class="col s4">
+                                     </br>
+                                     <div class="container">
+                                     
+                                     <h2>Formulario de registro</h2>
+                                     <label>Nombre Completo</label>
+                                     <input type="text" ng-model="solicitud.nombre">
+                                     </br></br>
+                                     <label>Teléfono Celular</label>
+                                     <input type="text" ng-model="solicitud.celular">
+                                     </br></br>
+                                      <label>Correo electronico</label>
+                                     <input type="text" ng-model="solicitud.correo">
+                                     </br></br>
+                                     <button class="btn red darken-3" ng-click="enviarSolicitud();">Enviar Solicitud</button>
+                                     </div>
+                                 </div>
+                            </div>
+                             </br>
+                 </div>
+             </div>
+     </br>
+                          
+  </div>
+<script>
+   function compartirTrabaja(){
+                var e = document.createElement('script');
+                e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+                e.async = true;
+                document.getElementById('fb-root').appendChild(e);
+                    FB.ui(
+                    {
+                    method: 'feed',
+                    name: '¿Te interesa generar un ingreso extra?',
+                    link: 'http://www.gflarocaferreteria.com/cliente/#/clientes/trabajaConNosotros',
+                    picture: 'http://www.gflarocaferreteria.com/public/images/logoSocial.png',
+                    caption: 'VENDE A TUS CLIENTES Y GANA CON NOSOTROS',
+                    description: 'Te damos la oportunidad de vender a tus propios clientes y de ganar como Vendedor Independiente, ofreciendo nuestros productos de alta calidad.',
+                    message: ''
+                    });
+           }
+
+</script>
+ 
+     
+
+		
+	
+
+

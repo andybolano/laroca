@@ -30,7 +30,7 @@
 						<td>{{servicio.id}}</td>
                                                 <td><img src="{{servicio.ruta}}?dummy=8484744" style="height: 40px; width: 40px;border-radius:50%;padding:0;margin: 0;" alt="" /></td>
 						<td>{{servicio.nombre}}</td>
-						<td>{{servicio.descripcion}}</td>
+						<td>{{servicio.descripcion | limitTo: 100 }}{{myString.length > 30 ? '...' : ''}}</td>
 						<td>
 			 <td><a data-ng-click="get(servicio)" href="javascript:;"><i class="material-icons left" >visibility</i></a>
                              <a href="javascript:;" ng-click="eliminar(servicio.id)"><i class = "material-icons prefix">delete</i></a></td>

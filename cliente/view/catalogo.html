@@ -1,4 +1,6 @@
+
 <div ng-controller="catalogoController">
+   
 <div class="crosscover-2">
  </br>
         <div class="crosscover-island">
@@ -51,7 +53,7 @@
                            
                                 <h2>{{producto.nombre}}&nbsp;{{producto.nombreMarca}}</h2>                  
                                <div class="descripcion">
-                                   <i class="used">{{producto.descripcion | limitTo: 30 }}{{myString.length > 20 ? '...' : ''}}</i>
+                                   <i class="used">{{producto.descripcion | limitTo: 30 }}{{myString.length > 30 ? '...' : ''}}</i>
                                </div>                            
                           
                
@@ -59,8 +61,7 @@
                         <div class="card-action row">
                          
                                <span class="col s6">
-                                   <a  name="fb_share" type="button_count"  title="Compartir en Facebook" href="http://www.facebook.com/sharer.php?s=100&amp;p[url]=http://developando.com?s=100&amp;p[title]=Conoce+a+Developando&amp;p[images][0]=http://developando.com/images/developandoLogo.jpeg&amp;p[summary]=Desarrollo+web+y+movil" target="_blank">Compartir</a>
-                               </span>
+                                   </span>
                               <span class="col s6 price">{{ producto.precio | currency}}</span>
                            
                         </div>
@@ -101,14 +102,19 @@
                     <p>
                       <i class="material-icons left">attach_money</i> <span style="font-weight:600">Precio: </span> {{Producto.precio | currency}}
                     </p>
+                    <form action="" name="frmValid">
                     <div class="row">
                         <div class="col s2">
                           <span style="font-weight:600">Cantidad: </span>
-                                <input id="cantidad" type="number" name="cantidad" ng-model="Pedido.cantidad" value="1" >
+                                <input id="cantidad" type="text" name="cantidad" ng-model="Pedido.cantidad" value="1"  required
+                                       ng-class="{invalid:!frmValid.$pristine && frmValid.cantidad.$error.required || frmValid.cantidad.$error.pattern}" ng-pattern="/^[0-9]*$/">
+                        	<small><span class="red-text" ng-show="!frmValid.cantidad.$pristine  && frmValid.cantidad.$error.pattern">Solo Números</span></small>
                         </div>
                         
                     </div>
+                    </form>
                     <div class="col s6">
+                        
                              <a href="javascript:;" class="waves-effect waves-light btn orange" ng-click="agregarCarrito(Producto)"><i class="material-icons left">add_shopping_cart</i>Agregar al Carrito</a>
                         </div>
                      
@@ -117,8 +123,7 @@
         </div>
 
     </div>
-   
-<script>
+    <script>
     $(document).ready(function(){
     $('ul.tabs').tabs();
     });

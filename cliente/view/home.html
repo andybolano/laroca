@@ -1,4 +1,5 @@
- <div  ng-controller="">
+
+<div  ng-controller="">
 <div class="crosscover">
     <div class="crosscover-overlay">
         <div class="crosscover-island">
@@ -28,27 +29,38 @@
             <article>
                 <div class="entry-content" style="padding: 20px;" >
                     <div class="col s7">
+                        <div style="margin-left:52px;">
                         <span class="grey-text text-darken-4 light"><h2>Grupo Ferretero&nbsp;<span style="font-weight:900">LA ROCA<span></h2>
-                                        <h2 style="color:#000000;font-weight:600">Bienvenido a nuestra tienda online.</h2>
+                                        </div>
+                        <h2 style="color:#000000;font-weight:600; margin-left:52px;">Bienvenido a nuestra tienda online.</h2>
                                         
-                                        <h5 style="font-size:16px;float:left"><i class="material-icons left" style="font-size:36px;color:#FF6D00">shopping_cart</i><span style="font-weight:600;color:#000000;">Tienda On-line:</span>Te brindamos la posibilidad de comprar materiales de construcción y productos de ferretería, sin necesidad de salir de casa.</h5>
-                                        <h5 style="font-size:16px;float:left"><i class="material-icons left" style="font-size:36px;color:#FF6D00">local_shipping</i><span style="font-weight:600;color:#000000;">Servicio a domicilio:</span> sus pedidos a tiempo, para cumplir con esta premisa contamos con un recurso humano comprometido con el servicio, con un cubrimiento en toda la Región  </h5>
-                                        <h5 style="font-size:16px;float:left"><i class="material-icons left" style="font-size:36px;color:#FF6D00">local_cafe</i><span style="font-weight:600;color:#000000;">Te invitamos un Cafè:</span>Acercate a nuestras instalaciones y comentanos tus necesidades, resolveremos tus inquietudes y/o problemas, las mejores soluciones economicas y de alta calidad, todo mientras tomamos un cafè. </h5>
+                                        <h5 style="font-size:16px;float:left" align="justify"><i class="material-icons left" style="font-size:36px;color:#FF6D00">shopping_cart</i><span style="font-weight:600;color:#000000;">Tienda On-line: </span>Te brindamos la posibilidad de comprar materiales de construcción y productos de ferretería, sin necesidad de salir de casa.</h5>
+                                        <h5 style="font-size:16px;float:left"align="justify"><i class="material-icons left" style="font-size:36px;color:#FF6D00">local_shipping</i><span style="font-weight:600;color:#000000;">Servicio a domicilio: </span> sus pedidos a tiempo, para cumplir con esta premisa contamos con un recurso humano comprometido con el servicio, con un cubrimiento en toda la Región  </h5>
+                                        <h5 style="font-size:16px;float:left" align="justify"><i class="material-icons left" style="font-size:36px;color:#FF6D00">local_cafe</i><span style="font-weight:600;color:#000000;">Te invitamos un Café: </span>Acercate a nuestras instalaciones y comentanos tus necesidades, resolveremos tus inquietudes y/o problemas, las mejores soluciones economicas y de alta calidad, todo mientras tomamos un cafè. </h5>
                                     </span>
-                                   
-                         
-                    </div>
+                                    </br></br></br></br>
+                                    <div>
+                                        <div style="margin-left:52px;">
+                                        <div class="fb-like" data-href="http://www.gflarocaferreteria.com/cliente/#/home" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                                        </br></br></br>
+                                        </div>
+                                        
+                                      
+
+                                    </div>
+                        </div>
                     <div class="col s5" style="padding-bottom: 20px;">
                          <h2>Muy Pronto encuentrala en:</h2>
                                     <img src="./images/playstore.png" width="180px;">
                                     <img src="./images/appstore.png" width="170px;">
                                     <br>
                                     </br>
-                                    <h2>  ¿Te interesa generar un ingreso extra?</h2>
-                                    <a class="waves-effect waves-light btn light-blue darken-3" href="#screenshots" style="margin-right:10px;"><i class="material-icons left">attach_money</i>Trabaja Con nosotros</a>
+                                    <h4>  ¿Te interesa generar un ingreso extra?</h4>
+                                    <a class="waves-effect waves-light btn light-blue darken-3" href="#/clientes/trabajaConNosotros" style="margin-right:10px;"><i class="material-icons left">attach_money</i>Trabaja Con nosotros</a>
                                     </br></br>
-                                    <h2 style="font-size:18px;font-weight:600;color:#c62828"><i class="material-icons left" style='font-size:32px;'>my_location</i>Visita nuestras modernas instalaciones, danos el placer de atenderte.</h2>
-                                        </br></br>
+                                    <h4>Visita nuestras modernas instalaciones, danos el placer de atenderte.</h4>
+                                    <a class="waves-effect waves-light btn red darken-3" href="#/clientes/location" style="margin-right:10px;" onclick="localizame();"><i class="material-icons left">my_location</i>Como llegar?</a> 
+                                    </br></br>
                     </div>
                 </div>
               
@@ -57,29 +69,35 @@
         </div>
     </div>
 </div>
-<div class="section">
-    <article>
-            <div id='mapa' style='width:100%; height:400px;'></div>
-        </article>
- </div>
+
+  
+
 
 
 
 </div>
- 
- 
+
+
  <script type="text/javascript">
+
+ (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.5&appId=949447518471160";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
         var map;
         var latitud;
         var longitud;
         
-         $(document).ready(function() {
-             localizame() ;
-         });
-        
+       
         function localizame() {
+        
             if (navigator.geolocation) { /* Si el navegador tiene geolocalizacion */
                 navigator.geolocation.getCurrentPosition(coordenadas, errores);
+                $("#modalMapa").openModal();
             }else{
                 alert('Oops! Tu navegador no soporta geolocalización. Bájate Chrome, que es gratis!');
             }
@@ -89,6 +107,7 @@
             latitud = position.coords.latitude; /*Guardamos nuestra latitud*/
             longitud = position.coords.longitude; /*Guardamos nuestra longitud*/
             cargarMapa();
+            
         }
         
         function errores(err) {

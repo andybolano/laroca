@@ -20,5 +20,15 @@ app.service('clienteService', function($http){
 		var req = $http.get(uri+'/api/clientes/'+ cedula);
 		return req;
 	}
+        
+        this.post = function  (object) {
+		var req = $http.post(uri + '/api/clientes', object);
+		return req;
+	}
+        
+        this.postSolicitudVendedor = function  (object) {     
+		var req = $http.post(uri + '/api/vendedores/solicitud', object);
+		return req;
+	}
 
 })

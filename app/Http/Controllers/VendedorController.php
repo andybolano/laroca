@@ -67,6 +67,49 @@ class VendedorController extends Controller
         $Usuario->save();
         return JsonResponse::create(array('message' => "Guardado Correctamente", "request" =>json_encode($data)), 200);  
     }
+    
+    public function newSolicitud(Request $request)
+    {
+        $data = $request->all();
+
+        $nombre = $data["nombre"];
+        $telefono = $data["telefono"];
+        $correo = $data["correo"];
+
+        $para  = "asesores@gflarocaferreteria.com";
+        $título = 'Solicitud de vendedor GF LA ROCA';
+   
+        
+        $mensaje = "
+        <html>
+        <head>
+          <title>Nueva solicitud para ingresar al grupo de vendedores</title>
+        </head>
+        <body>
+        <img style='width:100px;' src='http://www.gflarocaferreteria.com/public/images/logoComplete.png' alt=''/>
+          
+          <h1>Informacion Del Solicitante</h1>
+          
+          <br/>    
+          <p>Nombres: $nombre</p>
+          <p>Telefono: $telefono</p>
+          <p>Telefono: $correo</p>
+          <br/>
+  
+        </body>
+        </html>
+        ";
+       
+        $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+        $cabeceras .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+       
+        $cabeceras .= 'To: '.$nombre.' <'.$para.'>' . "\r\n";
+        $cabeceras .= 'From: GF La Roca Ferreteria <asesores@gflarocaferreteria.com>' . "\r\n";        
+
+        mail($para, $título, $mensaje, $cabeceras);
+        
+        return JsonResponse::create(array('message' => $nombre. ": Su solicitud ha sido enviada correctamente, Por favor este atento a su correo o teléfono móvil", "request" =>json_encode($data)), 200);  
+    }
 
     /**
      * Display the specified resource.

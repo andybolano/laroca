@@ -30,7 +30,6 @@ app.controller('serviciosController', function($scope, serviciosService){
 		var promiseGet = serviciosService.getAll(); 
         promiseGet.then(function (pl) {
             $scope.Servicios = pl.data;
-            console.log(JSON.stringify($scope.Servicios));
         },
         function (errorPl) {
         	console.log('Error Al Cargar Datos', errorPl);

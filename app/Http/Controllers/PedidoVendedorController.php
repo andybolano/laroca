@@ -36,7 +36,7 @@ class PedidoVendedorController extends Controller
 public function loadPedidos($estado)
     {
          $result = DB::select(DB::raw(
-                        "Select p.*,p.estado as estadoPedido, c.*, p.id as idPedido  from pedidosVendedores as p
+                        "Select p.*,p.estado as estadoPedido, c.*, p.id as idPedido  from pedidosvendedores as p
                          INNER JOIN vendedores as c ON p.idVendedor = c.cedula WHERE p.estado = '$estado'"
 
                     ));

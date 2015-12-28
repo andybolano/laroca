@@ -159,10 +159,10 @@ $scope.marcasHome = function(){
             
             $scope.Marcas = pl.data;
               for(var i = 0; i < $scope.Marcas.length ; i++){
-                  item = '<img src="'+$scope.Marcas[i].ruta+'?dummy=8484744" style="height:160px;" alt="" class="col s3" />';
+                  item = '<img src="'+$scope.Marcas[i].ruta+'?dummy=8484744" style="height:100px;" alt="" class="col s2" />';
                   lista = item + lista;  
                   cont=cont+1;
-                  if(cont==4){
+                  if(cont==6){
                       $("#marcas").append("<div style='display:none;'>"+lista+"</div>");
                       cont = 0;
                       lista="";
