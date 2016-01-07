@@ -42,7 +42,7 @@ class ServicioController extends Controller
         $data = $request->all();
         $Servicio = new Servicio();
         $Servicio->nombre = $data["nombre"];
-        $Servicio->descripcion = $data["descripcion"];
+        $Servicio->descripcion =  htmlspecialchars($data["descripcion"]);
         $Servicio->estado = "Activo";
         $Servicio->save();
         

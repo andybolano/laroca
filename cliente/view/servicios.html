@@ -9,4 +9,19 @@
    
   
 </div>
+<div ng-controller="serviciosController">
+    <div class="container">
+        <div class="col s12">
+            <div class="white z-depth-1" ng-repeat="servicio in Servicios | filter: filtro" style="margin-top:10px;margin-bottom:20px;padding:40px;">
+                </br>
+                <center> <h2 style="font-weight: 900">{{servicio.nombre}}</h2></center>
+                </br>
+                <center><img src="{{servicio.ruta}}?dummy=8484744" style="padding:0;margin: 0;" alt="" /></center>
+                </br>
+                <div align="justify">{{servicio.descripcion}}</div>		
+            </div>
+        </div>
+    </div>
+</div>
+
 

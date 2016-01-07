@@ -29,7 +29,8 @@ class ProductoController extends Controller
         
          
     }
-
+    
+ 
         /**
      * Display a listing of the resource.
      *
@@ -153,6 +154,20 @@ class ProductoController extends Controller
             return JsonResponse::create(array('message' => "No se pudo Modificar la producto", "exception"=>$exc->getMessage(), "request" =>json_encode($data)), 401);
         }
 
+    }
+   
+     public function calificar(Request $request){
+      try {
+         $data = $request->all();
+         $id = $data["producto"];
+         $producto = Producto::find($id);
+         $producto->calificacion = $data["calificacion"];
+         $producto->save();
+           return JsonResponse::create(array('message' => "Producto Calificado Correctamente", 200));
+            
+        } catch (Exception $exc) {
+            return JsonResponse::create(array('message' => "No se pudo Calificar la producto", "exception"=>$exc->getMessage(), 401));
+        }
     }
 
     /**

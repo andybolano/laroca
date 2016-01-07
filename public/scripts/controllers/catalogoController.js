@@ -9,6 +9,10 @@ app.controller('catalogoController', function($scope,$location,productosService,
     $scope.mostrarProductos = true;
 	loadCategorias();
     loadCarrito();
+    
+
+
+
 
     function loadCarrito () {
         $scope.Pedidos = JSON.parse(localStorage.getItem("carrito"));
@@ -239,8 +243,41 @@ app.controller('catalogoController', function($scope,$location,productosService,
         });
     }
     
-    $scope.buscador = function (){
-        // ng-keyup="buscador();"
+   
+   
+ 
+  
+    $scope.compartirProducto= function (producto){
+console.log(producto)
+             var e = document.createElement('script');
+                e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+                e.async = true;
+                document.getElementById('fb-root').appendChild(e);
+                    FB.ui(
+                    {
+                    method: 'feed',
+                    name: producto.nombre+" "+producto.nombreMarca,
+                    link: 'http://www.gflarocaferreteria.com/cliente/#/clientes/productos',
+                    picture: producto.ruta,
+                    caption: "Precio: $"+parseFloat(producto.precio),
+                    description: producto.descripcion+"."+producto.presentacion,
+                    message: ''
+                    });   
     }
-
+$scope.votar = function (producto,valor,calificacion){
+    
+    var cal = Math.round(((parseInt(calificacion)+parseInt(valor))/2));
+    
+    var object={
+        producto:producto,
+        calificacion:cal
+    }
+     var promisePost = productosService.calificar(object); 
+        promisePost.then(function (pl) {
+           Materialize.toast(pl.data.message, 5000, 'rounded');
+        },
+        function (errorPl) {
+            console.log('Error Al Calificar', errorPl);
+        });
+}
 })

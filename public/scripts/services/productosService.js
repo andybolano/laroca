@@ -34,6 +34,11 @@ app.service('productosService', function($http){
     this.getAllSubcategoria = function  (idsubcategoria) {
         var req = $http.get(uri+'/api/subcategoria/'+idsubcategoria+'/producto' );
         return req;
+    };
+    
+    this.calificar = function (object){
+         var req = $http.post(uri+'/api/producto/calificar', object);
+        return req;
     }
     
     

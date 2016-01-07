@@ -27,6 +27,7 @@ app.controller('serviciosController', function($scope, serviciosService){
     
     
 	function loadServicios () {
+   
 		var promiseGet = serviciosService.getAll(); 
         promiseGet.then(function (pl) {
             $scope.Servicios = pl.data;

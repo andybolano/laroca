@@ -1,4 +1,53 @@
+<style>
 
+.ec-stars-wrapper {
+	/* Espacio entre los inline-block (los hijos, los `a`) 
+	   http://ksesocss.blogspot.com/2012/03/display-inline-block-y-sus-empeno-en.html */
+	font-size: 0;
+	/* Podríamos quitarlo, 
+		pero de esta manera (siempre que no le demos padding), 
+		sólo aplicará la regla .ec-stars-wrapper:hover a cuando
+		también se esté haciendo hover a alguna estrella */
+	display: inline-block;
+}
+.ec-stars-wrapper button {
+	text-decoration: none;
+	display: inline-block;
+	font-size: 22px;
+	 margin-left:-11px;
+	color: #c3c3c3;
+        background-color: transparent;
+        border:none;
+}
+.ec-stars {
+	/* Espacio entre los inline-block (los hijos, los `a`) 
+	   http://ksesocss.blogspot.com/2012/03/display-inline-block-y-sus-empeno-en.html */
+	font-size: 0;
+	/* Podríamos quitarlo, 
+		pero de esta manera (siempre que no le demos padding), 
+		sólo aplicará la regla .ec-stars-wrapper:hover a cuando
+		también se esté haciendo hover a alguna estrella */
+	display: inline-block;
+}
+.ec-stars a {
+	text-decoration: none;
+	display: inline-block;
+	font-size: 22px;
+	 margin-left: -20px;
+	color: #c3c3c3;
+}
+
+.ec-stars-wrapper:hover button {
+	color:#B71C1C;
+}
+/*
+ * El selector de hijo, es necesario para aumentar la especifidad
+ */
+.ec-stars-wrapper > button:hover ~ button {
+	color: #c3c3c3;
+}
+</style> 
+ 
 <div ng-controller="catalogoController">
    
 <div class="crosscover-2">
@@ -44,9 +93,9 @@
         		</table>
         	</div>
         	<div class="col s10" ng-hide="mostrarProductos">
-                <div class="col s3" ng-repeat="producto in Productos | filter: filtro" ng-click = "detallesProducto(producto)" >
+                <div class="col s3" ng-repeat="producto in Productos | filter: filtro"  >
                     <div class="card">
-                        <div class="card-image">
+                        <div class="card-image" ng-click = "detallesProducto(producto)">
                             <img src="{{producto.ruta}}" alt="">
                         </div>
                         <div class="card-content">
@@ -59,11 +108,24 @@
                
                         </div>
                         <div class="card-action row">
-                         
-                               <span class="col s6">
-                                   </span>
-                              <span class="col s6 price">{{ producto.precio | currency}}</span>
+                           <div class="col s7 ec-stars" style="margin-top:-10px;text-align:left">
+                                    <a ng-if="producto.calificacion >= 1" href="javascript:;" data-value="1"  >&#9733;</a>
+                                    <a ng-if="producto.calificacion >= 2"  href="javascript:;" data-value="2"  >&#9733;</a>
+                                    <a ng-if="producto.calificacion >= 3"  href="javascript:;" data-value="3"  >&#9733;</a>
+                                    <a ng-if="producto.calificacion >= 4"  href="javascript:;" data-value="4"  >&#9733;</a>
+                                    <a ng-if="producto.calificacion >= 5"  href="javascript:;" data-value="5"  >&#9733;</a>
+                            </div>
+
                            
+                             <span class="col s5 price" style="text-align: right">{{ producto.precio | currency}}</span>
+                              <div class="col s8 ec-stars-wrapper" style="text-align: left;margin-left:-15px">
+                               
+                                    <button data-value="1" ng-click="votar(producto.id,1,producto.calificacion)"  >&#9733;</button>
+                                    <button  data-value="2" ng-click="votar(producto.id,2,producto.calificacion)" >&#9733;</button>
+                                    <button  data-value="3" ng-click="votar(producto.id,3,producto.calificacion)" >&#9733;</button>
+                                    <button  data-value="4" ng-click="votar(producto.id,4,producto.calificacion)" >&#9733;</button>
+                                    <button  data-value="5" ng-click="votar(producto.id,5,producto.calificacion)" >&#9733;</button>
+                            </div>
                         </div>
                     </div>  
                             
@@ -117,14 +179,40 @@
                         
                              <a href="javascript:;" class="waves-effect waves-light btn orange" ng-click="agregarCarrito(Producto)"><i class="material-icons left">add_shopping_cart</i>Agregar al Carrito</a>
                         </div>
+                    
+                    <div class="col s6">
+                        <a href="javascript:;" ng-click="compartirProducto(Producto)" class="btn" style="background-color:#3B5998;"><i class="material-icons left">share</i>Compartir</a>
+                    </div>
                      
                 </div>
             </div>
         </div>
 
     </div>
+    </div>
     <script>
+        
     $(document).ready(function(){
-    $('ul.tabs').tabs();
+        $('ul.tabs').tabs();
+   
     });
+    
+ 
+          function compartirProducto(){ 
+             var e = document.createElement('script');
+                e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+                e.async = true;
+                document.getElementById('fb-root').appendChild(e);
+                    FB.ui(
+                    {
+                    method: 'feed',
+                    name: '¿Te interesa generar un ingreso extra?',
+                    link: 'http://www.gflarocaferreteria.com/cliente/#/clientes/trabajaConNosotros',
+                    picture: 'http://www.gflarocaferreteria.com/public/images/logoSocial.png',
+                    caption: 'VENDE A TUS CLIENTES Y GANA CON NOSOTROS',
+                    description: 'Te damos la oportunidad de vender a tus propios clientes y de ganar como Vendedor Independiente, ofreciendo nuestros productos de alta calidad.',
+                    message: ''
+                    });   
+                }
+  
     </script>
