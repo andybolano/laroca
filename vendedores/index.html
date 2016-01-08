@@ -29,7 +29,7 @@
     </head>
     <body>
             <div class="navbar-fixed">    
-                <nav>
+                     <nav style="height:60px;line-height: 60px; ">
                     <div class="nav-wrapper orange accent-4">
                         <a style="float:left;margin-top:10px;margin-left:10px;width:40px; height:40px;border-radius:6px;text-align: center;" class="waves-effect waves-light" onclick="abrirMenu();">
                             <i style="line-height:35px;" class="mdi-navigation-menu"></i>
@@ -37,7 +37,7 @@
                         <a href="#/homeUsuario" class="brand-logo" style="margin-left:5px;margin-top: 6px;"><img src="../public/images/logo.png" width="160px;"></a>
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
                                   <li ng-controller="catalogoController"><a href="javascript:;" ng-click="carritoVendedor()"><i class="material-icons left">shopping_cart</i>Carrito de Compras</a></li>
-                            <li><a href="javascript:;" class="waves-effect waves-light"><i class="material-icons left" style="font-size:18px;">today</i>{{hoy}}</a></li>
+                            <li ng-controller="indexController" ><a href="javascript:;" class="waves-effect waves-light"><i class="material-icons left" style="font-size:18px;">today</i>{{hoy}}</a></li>
                             <li><a href="javascript:;" onclick="cerrarSesion()" class="waves-effect waves-light"><i class="material-icons left" style="font-size:18px;">input</i>Salir</a></li>
                         </ul>
                     </div>
@@ -178,5 +178,27 @@
             }
         }
         </script>
+        <div id="fb-root"></div>
+<script>
+  
+
+        
+     
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId  : '949452231804022',
+      status : true, // check login status
+      cookie : true, // enable cookies to allow the server to access the session
+      xfbml  : true  // parse XFBML
+    });
+  };
+
+
+
+
+  
+   
+
+</script>
     </body>
 </html>

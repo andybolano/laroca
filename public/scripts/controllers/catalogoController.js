@@ -248,7 +248,7 @@ app.controller('catalogoController', function($scope,$location,productosService,
  
   
     $scope.compartirProducto= function (producto){
-console.log(producto)
+
              var e = document.createElement('script');
                 e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
                 e.async = true;

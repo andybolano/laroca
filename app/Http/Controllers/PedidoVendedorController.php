@@ -170,7 +170,7 @@ public function loadPedidos($estado)
         $año = "20".$date->format('y');
         $result = DB::select(DB::raw(
             "Select * from pedidosvendedores
-             WHERE Month(fecha) = ".$mes." and Year(fecha) = ".$año." and idVendedor = '".$idVendedor."' and estadoPago ='SIN LIQUIDAR'" 
+             WHERE Month(fecha) = ".$mes." and Year(fecha) = ".$año." and idVendedor = '".$idVendedor."'" 
         ));
         return $result;
         //return $año;
@@ -178,7 +178,7 @@ public function loadPedidos($estado)
     public function getGananciaHistorico($idVendedor)
     {
 
-        $date = Carbon::now(); 
+
         $result = DB::select(DB::raw(
             "Select * from pedidosvendedores
              WHERE  idVendedor = '".$idVendedor."'and estadoPago ='LIQUIDADO'" 

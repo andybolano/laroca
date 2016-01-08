@@ -34,7 +34,7 @@
                                 <tbody>
                                     <tr ng-repeat="vendedor in VendedorPedidos| filter : filtro">
                                         <td>{{vendedor.valor| currency}}</td>
-                                         <td>{{vendedor.ganancia * 1000 | currency}}</td>
+                                         <td>{{vendedor.ganancia | currency}}</td>
                                         
                                         <td><span class="lime darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{vendedor.estado}}</span></td>
                                              <td><span class="red darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{vendedor.estadoPago}}</span></td>
@@ -72,7 +72,7 @@
                                 </tr>
                                 <tr>
                                     <td><span style="font-weight:900">Ganancia Vendedor:</span></td>
-                                    <td style="text-align: left"><span class="blue darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{DetallePedido.ganancia * 1000  | currency }}</span></td>
+                                    <td style="text-align: left"><span class="blue darken-1" style="padding:3px;color:#FFFFFF;border-radius:3px;">{{DetallePedido.ganancia | currency }}</span></td>
                                 </tr>
                                 <tr>
                                     <td><span style="font-weight:900">Estado Pedido:</span></td>
@@ -106,24 +106,23 @@
                          
                          <th width="50px">Marca</th>
                         <th style=" text-align: center" width="50px">Cantidad</th>
-                        <th style="width:60px; text-align: right">Precio vendedor</th>
-                        <th style="width:60px; text-align: right">Precio de venta</th>
-                        <th style="width:60px; text-align: right">Ganancia</th>
+                        <th style="width:60px; text-align: right">Precio</th>
+                       
                         <th style="width:60px; text-align: right">Subtotal</th>
+                         <th style="width:60px; text-align: right">Ganancia</th>
                     </thead>
                     <tbody>
                         <tr ng-repeat="pedido in Pedidos">
                             <td width="50px"><img src="{{pedido.ruta}}" width="50px;"></td>
                             <td width="100px;">{{pedido.nombre}} {{pedido.nombreMarca}}</td>
-                         
                             <td><img src="{{pedido.imagenMarca}}" width="50px;" title="{{pedido.nombreMarca}}"></td>
                             <td style="width: 20px;text-align:center">
                                 {{pedido.cantidad}}
                             </td>
                              <td style="width:60px; text-align: right">{{pedido.precio| currency}}</td>
-                            <td style="width:60px; text-align: right">{{pedido.precioVenta| currency}}</td>
-                            <td style="width:60px; text-align: right">{{pedido.ganancia * 1000 | currency}}</td>
-                            <td style="width:60px; text-align: right" align="right"><span style="font-weight:600">{{pedido.precioVenta * pedido.cantidad | currency}}</span></td>
+                                                         <td style="width:60px; text-align: right" align="right"><span style="font-weight:600">{{pedido.precio * pedido.cantidad | currency}}</span></td>
+                            <td style="width:60px; text-align: right">{{pedido.ganancia | currency}}</td>
+
                         </tr>
                     </tbody>
                 </table>

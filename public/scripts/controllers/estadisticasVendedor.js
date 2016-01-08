@@ -25,7 +25,6 @@ app.controller('estadisticasVendedor', function($scope,pedidosService){
 	}
         
         function loadPedidosHistorico () { 
-      
         var usuario = JSON.parse(sessionStorage.getItem("session"));
         $scope.GananciaHistorica =0;
        var promiseGet = pedidosService.getPedidosHistorico(usuario[0].cedula); 
