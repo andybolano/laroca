@@ -4,6 +4,7 @@ app.controller('serviciosController', function($scope, serviciosService){
     $scope.titulo;
     $scope.active;
     $scope.editMode = false;
+    $scope.servicioSolicitado = {};
 	loadServicios();
         
    function initialize() {
@@ -134,4 +135,13 @@ app.controller('serviciosController', function($scope, serviciosService){
             console.log(err);
         });
     };
+     $scope.solicitarServicio = function(servicio){
+        
+            $scope.servicioSolicitado= servicio;
+
+           localStorage.setItem('servicio', JSON.stringify(servicio));
+          $("#modalRegistro").openModal(); 
+     
+     }
+    
 })

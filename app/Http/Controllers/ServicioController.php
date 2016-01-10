@@ -125,6 +125,69 @@ class ServicioController extends Controller
      * @param  int  $id
      * @return Response
      */
+    public function solicitarServicio(Request $request){
+        try {
+            
+           $data = $request->all();
+
+        $nombre = $data["nombres"];
+        $telefono = $data["telefono"];
+        $correo = $data["correo"];
+        $cedula = $data["cedula"];
+        $direccion = $data["direccion"];
+        $servicio = $data["servicio"];
+        $imagen = $data["imagen"];
+        
+        $para  = "asesores@gflarocaferreteria.com";
+        $título = 'Solicitud de servicio GF LA ROCA';
+   
+      
+        $mensaje = "
+        <html>
+        <head>
+          <title>Nueva solicitud de servicio/title>
+        </head>
+        <body>
+        </br></br>
+        <img style='width:200px;' src='http://www.gflarocaferreteria.com/public/images/logoComplete.png' alt=''/>
+          
+          <h1>Informacion Del Solicitante</h1>
+          
+          <br/>  
+          <p>Cedula: $cedula</p>
+          <p>Nombres: $nombre</p>
+          <p>Telefono: $telefono</p>
+          <p>Correo: $correo</p>
+          <p>Direccion: $direccion</p>
+              
+          <br/>
+          
+          <h2>$servicio</h2>
+              </br>
+              <img src='$imagen' style='padding:0;margin: 0;'  width='400px;' alt='' />
+  
+        </body>
+        </html>
+        ";
+       
+        $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+        $cabeceras .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+       
+        $cabeceras .= 'To: '.$nombre.' <'.$para.'>' . "\r\n";
+        $cabeceras .= 'From: GF La Roca Ferreteria <asesores@gflarocaferreteria.com>' . "\r\n";        
+
+        mail($para, $título, $mensaje, $cabeceras);
+        
+        return JsonResponse::create(array('message' => $nombre. ": Su solicitud ha sido enviada correctamente, Por favor este atento a su correo o teléfono móvil", "request" =>json_encode($data)), 200);  
+          
+            
+            
+        } catch (Exception $exc) {
+            return JsonResponse::create(array('message' => "No se pudo solicitar servicio", "exception"=>$exc->getMessage()), 401);
+        }
+ 
+    }
+    
     public function destroy($id)
     {
         $Servicio = Servicio::find($id);

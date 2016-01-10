@@ -127,5 +127,31 @@ app.controller('clientesController', function($scope,clienteService,pedidosServi
             console.log('Error Al Cargar Datos', errorPl);
         });
     }
+    
+    $scope.solicitudServicio = function (cliente){
+        
+       var servicio = JSON.parse(localStorage.getItem('servicio'));
+
+        var object = {
+            nombres:cliente.nombres+" "+cliente.apellidos,
+            cedula:cliente.cedula,
+            direccion:cliente.direccion,
+            telefono:cliente.telefono,
+            correo:cliente.correo,
+            servicio:servicio.nombre,
+            imagen:servicio.ruta
+            
+        }
+          var promiseGet = clienteService.postSolicitudServicio(object); 
+        promiseGet.then(function (pl) {
+            Materialize.toast(pl.data.message, 10000, 'rounded');
+            $("#modalRegistro").closeModal(); 
+            localStorage.removeItem('servicio');
+        },
+        function (errorPl) {
+            console.log('Error Al Cargar Datos', errorPl);
+        });
+        
+    }
 
 })

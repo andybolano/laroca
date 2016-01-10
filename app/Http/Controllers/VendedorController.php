@@ -86,14 +86,15 @@ class VendedorController extends Controller
           <title>Nueva solicitud para ingresar al grupo de vendedores</title>
         </head>
         <body>
-        <img style='width:100px;' src='http://www.gflarocaferreteria.com/public/images/logoComplete.png' alt=''/>
+        </br></br>
+        <img style='width:200px;' src='http://www.gflarocaferreteria.com/public/images/logoComplete.png' alt=''/>
           
           <h1>Informacion Del Solicitante</h1>
           
           <br/>    
           <p>Nombres: $nombre</p>
           <p>Telefono: $telefono</p>
-          <p>Telefono: $correo</p>
+          <p>Correo: $correo</p>
           <br/>
   
         </body>

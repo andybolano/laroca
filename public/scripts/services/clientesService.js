@@ -30,5 +30,10 @@ app.service('clienteService', function($http){
 		var req = $http.post(uri + '/api/vendedores/solicitud', object);
 		return req;
 	}
+         this.postSolicitudServicio = function  (object) {  
+             console.log(object)
+		var req = $http.post(uri + '/api/servicio/solicitud', object);
+		return req;
+	}
 
 })
