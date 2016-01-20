@@ -95,7 +95,7 @@ class ProductoController extends Controller
             $producto->categoria = $data["categoria"];
             $producto->subcategoria = $data["subcategoria"];
             $producto->precio = $data["precio"];
-             $producto->porcentajeVendedor = $data["porcentajeVendedor"];
+            $producto->porcentajeVendedor = $data["porcentajeVendedor"];
             $producto->porcentajeDescuento = $data["porcentajeDescuento"];
             $producto->presentacion = $data["presentacion"];
             $producto->descripcion = $data["descripcion"];

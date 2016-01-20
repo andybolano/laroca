@@ -19,6 +19,9 @@ var app;
                     .when("/pedidosClientes", {
                         templateUrl: 'pedidosClientes.html'
                     })
+                    .when("/correos", {
+                        templateUrl: 'correos.html'
+                    })
                     .when("/pedidosVendedores", {
                         templateUrl: 'pedidosVendedores.html'
                     })
